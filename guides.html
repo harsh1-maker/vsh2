@@ -1,268 +1,425 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+  <title>Water Tank Cleaning Guides | VSH Tank Cleaning</title>
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>
-VSH Tank Cleaning | Guides
-</title>
-
-<link rel="stylesheet"
-      href="css/styles.css">
-
+  <link rel="stylesheet" href="css/guides.css">
 </head>
-
 
 <body>
 
+<header class="guides-navbar">
 
-<header class="navbar">
+  <div class="guides-logo">
+    <a href="index.html">
 
-<div class="logo">
+      <span class="logo-mark">V</span>
 
-<a href="index.html">
-VSH Tank Cleaning
-</a>
+      <span class="logo-text">
+        <strong>VSH Tank Cleaning</strong>
+        <small>PROFESSIONAL WATER TANK CLEANING</small>
+      </span>
 
-</div>
+    </a>
+  </div>
 
 
-<nav>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="prices.html">Prices</a>
+    <a href="areas.html">Areas</a>
+    <a href="process.html">Process</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="guides.html" class="active">Guides</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+  </nav>
 
-<a href="index.html">
-Home
-</a>
 
-<a href="services.html">
-Services
-</a>
+  <div class="header-actions">
 
-<a href="areas.html">
-Areas
-</a>
+    <a href="tel:+919599057079" class="call-btn">
+      ☎ <span>+91 95990 57079</span>
+    </a>
 
-<a href="prices.html">
-Prices
-</a>
+    <a href="cart.html" class="cart-btn">
+      🛒 Cart
+      <span id="cart-count">0</span>
+    </a>
 
-<a href="process.html">
-Process
-</a>
+    <a href="prices.html" class="book-btn">
+      Book Cleaning →
+    </a>
 
-<a href="reviews.html">
-Reviews
-</a>
-
-<a href="guides.html"
-   class="active">
-Guides
-</a>
-
-<a href="about.html">
-About Us
-</a>
-
-<a href="contact.html">
-Contact
-</a>
-
-<a href="cart.html"
-   class="cart-link">
-
-🛒 Cart
-<span id="cart-count">0</span>
-
-</a>
-
-</nav>
+  </div>
 
 </header>
 
 
-
-<main class="page">
-
-
-<section class="hero-section">
-
-<h1>
-Water Tank Cleaning Guides
-</h1>
-
-<p>
-Useful information to help you maintain cleaner water storage.
-</p>
-
-</section>
+<main>
 
 
+<!-- =========================
+     HERO
+========================= -->
 
-<section class="pricing-grid">
+<section class="guides-hero">
 
+  <div class="hero-content">
 
-<div class="price-card">
+    <div class="hero-badge">
+      📚 VSH Tank Cleaning Guides
+    </div>
 
-<h2>
-How Often Should You Clean Your Tank?
-</h2>
+    <h1>
+      Everything you need to know about
+      <span>water tank cleaning.</span>
+    </h1>
 
-<p class="tank-size">
-Regular inspection helps identify when cleaning is needed.
-</p>
+    <p>
+      Practical guides covering tank cleaning, sludge, hygiene,
+      cleaning frequency, overhead tanks, underground tanks,
+      maintenance and safe water storage.
+    </p>
 
-<ul>
+    <div class="hero-buttons">
 
-<li>
-Check for visible sediment
-</li>
+      <a href="prices.html" class="primary-btn">
+        Book Tank Cleaning →
+      </a>
 
-<li>
-Look for dirt or sludge
-</li>
+      <a href="tel:+919599057079" class="secondary-btn">
+        ☎ +91 95990 57079
+      </a>
 
-<li>
-Check for unusual smell
-</li>
+    </div>
 
-<li>
-Schedule cleaning when required
-</li>
-
-</ul>
-
-</div>
-
-
-
-<div class="price-card">
-
-<h2>
-Why Does Sludge Build Up?
-</h2>
-
-<p class="tank-size">
-Sediment can accumulate at the bottom of a tank over time.
-</p>
-
-<ul>
-
-<li>
-Dust and particles
-</li>
-
-<li>
-Water sediment
-</li>
-
-<li>
-Pipe deposits
-</li>
-
-<li>
-Long periods without cleaning
-</li>
-
-</ul>
-
-</div>
-
-
-
-<div class="price-card">
-
-<h2>
-Signs Your Tank Needs Cleaning
-</h2>
-
-<p class="tank-size">
-Keep an eye out for changes in your tank and water.
-</p>
-
-<ul>
-
-<li>
-Visible sludge
-</li>
-
-<li>
-Bad smell
-</li>
-
-<li>
-Dirty or discoloured water
-</li>
-
-<li>
-Long time since last cleaning
-</li>
-
-</ul>
-
-</div>
-
+  </div>
 
 </section>
 
 
+<!-- =========================
+     GUIDE CATEGORIES
+========================= -->
 
-<section class="discount-info">
+<section class="guides-section">
 
-<h2>
-Need Professional Cleaning?
-</h2>
+  <div class="section-heading">
+
+    <span>WATER TANK KNOWLEDGE</span>
+
+    <h2>
+      Helpful guides for cleaner water storage
+    </h2>
+
+    <p>
+      Select a guide below to read the complete article.
+      Each guide explains the topic in simple language.
+    </p>
+
+  </div>
 
 
-<div class="discount-grid">
+  <div class="guides-grid">
 
-<div>
-<strong>
-₹499+
-</strong>
 
-<span>
-Starting price
-</span>
+    <!-- GUIDE 1 -->
+
+    <article class="guide-card"
+      onclick="openGuide('cleaning-frequency')">
+
+      <div class="guide-icon">🧼</div>
+
+      <div class="guide-category">
+        TANK MAINTENANCE
+      </div>
+
+      <h3>
+        How Often Should You Clean Your Water Tank?
+      </h3>
+
+      <p>
+        Learn why storage tanks need periodic cleaning and
+        what signs indicate that your tank needs attention.
+      </p>
+
+      <div class="guide-footer">
+        <span>Read full guide</span>
+        <strong>→</strong>
+      </div>
+
+    </article>
+
+
+    <!-- GUIDE 2 -->
+
+    <article class="guide-card"
+      onclick="openGuide('overhead-tank')">
+
+      <div class="guide-icon">🏠</div>
+
+      <div class="guide-category">
+        OVERHEAD TANKS
+      </div>
+
+      <h3>
+        Complete Guide to Overhead Water Tank Cleaning
+      </h3>
+
+      <p>
+        Understand sludge, dirt, deposits and the basic process
+        involved in cleaning an overhead tank.
+      </p>
+
+      <div class="guide-footer">
+        <span>Read full guide</span>
+        <strong>→</strong>
+      </div>
+
+    </article>
+
+
+    <!-- GUIDE 3 -->
+
+    <article class="guide-card"
+      onclick="openGuide('underground-tank')">
+
+      <div class="guide-icon">🏢</div>
+
+      <div class="guide-category">
+        UNDERGROUND TANKS
+      </div>
+
+      <h3>
+        Underground Water Tank Cleaning Guide
+      </h3>
+
+      <p>
+        A detailed look at underground storage tanks, sediment,
+        inspection and cleaning considerations.
+      </p>
+
+      <div class="guide-footer">
+        <span>Read full guide</span>
+        <strong>→</strong>
+      </div>
+
+    </article>
+
+
+    <!-- GUIDE 4 -->
+
+    <article class="guide-card"
+      onclick="openGuide('sludge')">
+
+      <div class="guide-icon">🪣</div>
+
+      <div class="guide-category">
+        SLUDGE & DIRT
+      </div>
+
+      <h3>
+        What Is the Sludge at the Bottom of Your Tank?
+      </h3>
+
+      <p>
+        Find out how sediment and deposits accumulate and why
+        simply replacing the water doesn't clean the tank.
+      </p>
+
+      <div class="guide-footer">
+        <span>Read full guide</span>
+        <strong>→</strong>
+      </div>
+
+    </article>
+
+
+    <!-- GUIDE 5 -->
+
+    <article class="guide-card"
+      onclick="openGuide('water-hygiene')">
+
+      <div class="guide-icon">💧</div>
+
+      <div class="guide-category">
+        WATER HYGIENE
+      </div>
+
+      <h3>
+        How to Keep Your Water Storage Tank Hygienic
+      </h3>
+
+      <p>
+        Learn about covers, inspection, cleaning, storage practices
+        and protecting your tank from contamination.
+      </p>
+
+      <div class="guide-footer">
+        <span>Read full guide</span>
+        <strong>→</strong>
+      </div>
+
+    </article>
+
+
+    <!-- GUIDE 6 -->
+
+    <article class="guide-card"
+      onclick="openGuide('before-cleaning')">
+
+      <div class="guide-icon">🔍</div>
+
+      <div class="guide-category">
+        PREPARATION
+      </div>
+
+      <h3>
+        What to Do Before Your Tank Cleaning Service
+      </h3>
+
+      <p>
+        Simple preparation steps that can make your cleaning
+        appointment easier and more efficient.
+      </p>
+
+      <div class="guide-footer">
+        <span>Read full guide</span>
+        <strong>→</strong>
+      </div>
+
+    </article>
+
+
+    <!-- GUIDE 7 -->
+
+    <article class="guide-card"
+      onclick="openGuide('tank-maintenance')">
+
+      <div class="guide-icon">🔧</div>
+
+      <div class="guide-category">
+        MAINTENANCE
+      </div>
+
+      <h3>
+        Water Tank Maintenance Checklist
+      </h3>
+
+      <p>
+        A practical checklist for inspecting and maintaining
+        your household water storage tank.
+      </p>
+
+      <div class="guide-footer">
+        <span>Read full guide</span>
+        <strong>→</strong>
+      </div>
+
+    </article>
+
+
+    <!-- GUIDE 8 -->
+
+    <article class="guide-card"
+      onclick="openGuide('professional-cleaning')">
+
+      <div class="guide-icon">👷</div>
+
+      <div class="guide-category">
+        PROFESSIONAL SERVICE
+      </div>
+
+      <h3>
+        DIY Tank Cleaning vs Professional Tank Cleaning
+      </h3>
+
+      <p>
+        Understand the difference between basic household
+        maintenance and a thorough professional cleaning service.
+      </p>
+
+      <div class="guide-footer">
+        <span>Read full guide</span>
+        <strong>→</strong>
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     GUIDE ARTICLE MODAL
+========================= -->
+
+<div id="guide-overlay" class="guide-overlay">
+
+  <div class="guide-modal">
+
+    <button class="close-guide" onclick="closeGuide()">
+      ×
+    </button>
+
+    <div id="guide-content"></div>
+
+  </div>
+
 </div>
 
 
-<div>
-<strong>
-Professional
-</strong>
+<!-- =========================
+     CTA
+========================= -->
 
-<span>
-Thorough cleaning
-</span>
-</div>
+<section class="guides-cta">
+
+  <div>
+
+    <span>
+      NEED PROFESSIONAL CLEANING?
+    </span>
+
+    <h2>
+      Let VSH take care of your tank.
+    </h2>
+
+    <p>
+      Professional water tank cleaning for homes,
+      apartments, societies and commercial properties.
+    </p>
+
+  </div>
 
 
-<div>
-<strong>
-Easy
-</strong>
+  <div class="cta-buttons">
 
-<span>
-Online booking
-</span>
-</div>
+    <a
+      href="https://wa.me/919599057079"
+      class="whatsapp-btn">
+      WhatsApp Us
+    </a>
 
+    <a
+      href="tel:+919599057079"
+      class="call-cta">
+      ☎ Call Us
+    </a>
 
-<div>
-<strong>
-Delhi NCR
-</strong>
+    <a
+      href="prices.html"
+      class="book-cta">
+      Book Now →
+    </a>
 
-<span>
-Service coverage
-</span>
-</div>
-
-</div>
+  </div>
 
 </section>
 
@@ -270,7 +427,681 @@ Service coverage
 </main>
 
 
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="guides-footer">
+
+  <div class="footer-main">
+
+    <div>
+
+      <div class="footer-logo">
+
+        <span>V</span>
+
+        <strong>
+          VSH Tank Cleaning
+        </strong>
+
+      </div>
+
+      <p>
+        Professional water tank cleaning services
+        for homes, apartments, societies and businesses.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <h3>Quick Links</h3>
+
+      <a href="services.html">Services</a>
+      <a href="prices.html">Prices</a>
+      <a href="process.html">Our Process</a>
+      <a href="reviews.html">Reviews</a>
+
+    </div>
+
+
+    <div>
+
+      <h3>Contact</h3>
+
+      <a href="tel:+919599057079">
+        +91 95990 57079
+      </a>
+
+      <a href="https://wa.me/919599057079">
+        WhatsApp Us
+      </a>
+
+      <a href="contact.html">
+        Contact VSH
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="copyright">
+    © 2026 VSH Tank Cleaning. All rights reserved.
+  </div>
+
+</footer>
+
+
 <script src="js/app.js"></script>
+
+
+<script>
+
+/* ==========================================
+   GUIDE DATA
+========================================== */
+
+const guides = {
+
+  "cleaning-frequency": {
+
+    category: "TANK MAINTENANCE",
+
+    title: "How Often Should You Clean Your Water Tank?",
+
+    intro:
+      "Water storage tanks should not be treated as a one-time maintenance item. Dirt, sediment, deposits and biological growth can accumulate over time, particularly when tanks are exposed to contamination or are not properly covered.",
+
+    sections: [
+
+      {
+        title: "Why does a tank need regular cleaning?",
+
+        text:
+          "Even when the water entering your home looks clean, particles can settle at the bottom of a storage tank. Over time, sediment can accumulate and surfaces can develop deposits or biological growth. Regular inspection and cleaning helps maintain hygienic storage conditions."
+      },
+
+      {
+        title: "How frequently should cleaning be considered?",
+
+        text:
+          "There is no single interval that works for every tank. The appropriate schedule depends on the tank's condition, water source, amount of sediment, usage and water-quality observations. Indian public-health and water-supply guidance commonly recommends periodic cleaning, with some guidance recommending cleaning at least every six months for overhead tanks."
+      },
+
+      {
+        title: "Signs your tank may need cleaning",
+
+        bullets: [
+          "Visible sludge or sediment at the bottom.",
+          "Dirt or deposits on the tank walls.",
+          "Unusual smell or taste in stored water.",
+          "Water becoming cloudy after storage.",
+          "The tank has not been inspected or cleaned for a long period.",
+          "The tank has been unused for an extended period."
+        ]
+      },
+
+      {
+        title: "A practical maintenance approach",
+
+        text:
+          "Inspect the tank periodically, keep the lid properly closed and arrange cleaning when significant sediment or deposits are observed. Keeping a record of the last cleaning date can also make future maintenance easier."
+      }
+
+    ],
+
+    source:
+      "Government of India and public-health guidance recommends periodic inspection, cleaning and, where appropriate, disinfection of water storage tanks."
+  },
+
+
+  "overhead-tank": {
+
+    category: "OVERHEAD TANKS",
+
+    title: "Complete Guide to Overhead Water Tank Cleaning",
+
+    intro:
+      "Overhead tanks are commonly used for storing water before it is supplied to different parts of a building. Because they remain exposed to environmental conditions around the rooftop, maintaining them properly is important.",
+
+    sections: [
+
+      {
+        title: "What accumulates inside an overhead tank?",
+
+        text:
+          "Sediment, dust, particles and other debris can settle inside the tank. If the tank is not adequately covered, insects and other contaminants can also enter. Algae and biological growth can become a concern when light and favourable conditions are present."
+      },
+
+      {
+        title: "Basic cleaning process",
+
+        bullets: [
+          "Arrange an alternative water supply if required.",
+          "Stop or isolate the inlet before cleaning.",
+          "Drain the stored water safely.",
+          "Remove accumulated sludge and sediment.",
+          "Scrub internal walls and the floor.",
+          "Wash and flush the tank thoroughly.",
+          "Inspect the tank for deterioration or damage.",
+          "Disinfect when required using an appropriate method.",
+          "Flush the tank before returning it to normal use."
+        ]
+      },
+
+      {
+        title: "Why the bottom needs attention",
+
+        text:
+          "Sediment naturally settles in low areas of a storage tank. Simply draining the tank does not necessarily remove material attached to the floor or walls. Physical cleaning is therefore an important part of tank maintenance."
+      },
+
+      {
+        title: "Keep the tank covered",
+
+        text:
+          "A properly fitted lid helps prevent debris, insects and other contaminants from entering the storage tank. Government guidance also recommends protecting tank inlets and keeping the tank covered."
+      }
+
+    ],
+
+    source:
+      "Government of India and Haryana PHED guidance describes inspection, draining, washing/scrubbing, inspection and disinfection as parts of water-storage-tank maintenance."
+  },
+
+
+  "underground-tank": {
+
+    category: "UNDERGROUND TANKS",
+
+    title: "Underground Water Tank Cleaning Guide",
+
+    intro:
+      "Underground storage tanks can accumulate sediment in the same way as overhead tanks, but their location and access arrangement can make inspection and cleaning more challenging.",
+
+    sections: [
+
+      {
+        title: "Why underground tanks need attention",
+
+        text:
+          "Sediment can settle at the bottom while deposits can accumulate on internal surfaces. Because the tank is below ground, problems may not be immediately visible from outside."
+      },
+
+      {
+        title: "What should be checked?",
+
+        bullets: [
+          "Access cover and manhole condition.",
+          "Inlet and outlet arrangements.",
+          "Visible sediment or sludge.",
+          "Internal walls and floor.",
+          "Signs of deterioration.",
+          "Possible sources of contamination.",
+          "Drainage and washout arrangements."
+        ]
+      },
+
+      {
+        title: "Cleaning considerations",
+
+        text:
+          "The tank should be isolated from the normal water supply before cleaning. Remaining water and accumulated sediment should be removed, followed by washing and scrubbing of the internal surfaces. After cleaning, the tank should be appropriately flushed and disinfected where required."
+      },
+
+      {
+        title: "Safety matters",
+
+        text:
+          "Underground tanks may have restricted access and can present confined-space hazards. Professional cleaning should therefore be carried out with appropriate safety procedures rather than sending an untrained person into a tank."
+      }
+
+    ],
+
+    source:
+      "Haryana PHED maintenance guidance emphasizes isolation, draining, removal of silt, washing internal surfaces, inspection and appropriate disinfection."
+  },
+
+
+  "sludge": {
+
+    category: "SLUDGE & DIRT",
+
+    title: "What Is the Sludge at the Bottom of Your Tank?",
+
+    intro:
+      "The dark or muddy material found at the bottom of a water storage tank is generally accumulated sediment, dirt and other deposited material. It can build up gradually even when the tank appears clean from outside.",
+
+    sections: [
+
+      {
+        title: "Where does sludge come from?",
+
+        text:
+          "Small particles can enter through the water supply or through openings in an inadequately protected tank. Heavier particles settle at the bottom because of gravity. Over time, this layer can become thicker."
+      },
+
+      {
+        title: "Why doesn't draining remove everything?",
+
+        text:
+          "Opening a drain or outlet can remove water and some loose material, but deposits can remain attached to surfaces or concentrated in low areas. Physical scrubbing and washing are therefore commonly used during thorough tank cleaning."
+      },
+
+      {
+        title: "What does professional cleaning involve?",
+
+        bullets: [
+          "Draining the remaining water.",
+          "Removing accumulated sediment.",
+          "Scrubbing internal surfaces.",
+          "Washing away loosened material.",
+          "Flushing the tank.",
+          "Inspecting the cleaned surfaces.",
+          "Disinfecting when appropriate."
+        ]
+      },
+
+      {
+        title: "How can sludge accumulation be reduced?",
+
+        bullets: [
+          "Keep the tank properly covered.",
+          "Protect inlet openings from debris.",
+          "Inspect the tank periodically.",
+          "Maintain filters where installed.",
+          "Clean the tank before sediment becomes excessive."
+        ]
+      }
+
+    ]
+  },
+
+
+  "water-hygiene": {
+
+    category: "WATER HYGIENE",
+
+    title: "How to Keep Your Water Storage Tank Hygienic",
+
+    intro:
+      "Tank cleaning is only one part of maintaining a hygienic water-storage system. The tank, fittings, inlet, outlet and surrounding area should all be kept in good condition.",
+
+    sections: [
+
+      {
+        title: "Keep the tank covered",
+
+        text:
+          "The tank should have a secure cover. Open or poorly covered tanks can allow dust, insects, leaves and other contaminants to enter."
+      },
+
+      {
+        title: "Inspect regularly",
+
+        text:
+          "Regular visual inspection can help identify sediment, unusual growth, damaged surfaces, leaks or other problems before they become more serious."
+      },
+
+      {
+        title: "Keep fittings clean",
+
+        text:
+          "Taps, related fittings, pumps and pipes should be maintained appropriately. Where cleaning is performed, the system should be flushed properly afterwards."
+      },
+
+      {
+        title: "Avoid contamination",
+
+        bullets: [
+          "Do not leave the tank open.",
+          "Keep surrounding areas clean.",
+          "Prevent waste water from entering the tank.",
+          "Protect inlet openings.",
+          "Address damaged covers or fittings.",
+          "Use appropriate water-treatment methods when needed."
+        ]
+      }
+
+    ],
+
+    source:
+      "WHO household-water guidance recommends regular cleaning and disinfection of storage containers and maintaining sanitary storage practices."
+  },
+
+
+  "before-cleaning": {
+
+    category: "PREPARATION",
+
+    title: "What to Do Before Your Tank Cleaning Service",
+
+    intro:
+      "A little preparation before the cleaning team arrives can make the service smoother and reduce unnecessary water wastage.",
+
+    sections: [
+
+      {
+        title: "Before the appointment",
+
+        bullets: [
+          "Confirm the tank location and access point.",
+          "Tell the cleaning team whether the tank is overhead or underground.",
+          "Mention if there are multiple tanks.",
+          "Keep the tank access area clear.",
+          "Arrange an alternative water supply if necessary."
+        ]
+      },
+
+      {
+        title: "What about the water inside?",
+
+        text:
+          "Cleaning normally requires the stored water to be drained or reduced substantially. Where possible, plan household water use before the appointment so that less usable water is wasted."
+      },
+
+      {
+        title: "Make access easy",
+
+        text:
+          "The cleaning team needs safe access to the tank, its cover and surrounding working area. Removing obstacles around the tank beforehand can save time."
+      },
+
+      {
+        title: "After cleaning",
+
+        text:
+          "The tank should be properly flushed after cleaning and should only be returned to normal use once the cleaning/disinfection procedure has been completed appropriately."
+      }
+
+    ]
+  },
+
+
+  "tank-maintenance": {
+
+    category: "MAINTENANCE",
+
+    title: "Water Tank Maintenance Checklist",
+
+    intro:
+      "Regular inspection can help you identify problems before they become major maintenance issues.",
+
+    sections: [
+
+      {
+        title: "Monthly visual checklist",
+
+        bullets: [
+          "Check that the tank cover is properly closed.",
+          "Look for visible debris around the tank.",
+          "Check for leaks around accessible fittings.",
+          "Inspect the surrounding area for contamination sources.",
+          "Check whether the water appears unusually cloudy or has an unusual smell."
+        ]
+      },
+
+      {
+        title: "Periodic cleaning checklist",
+
+        bullets: [
+          "Drain or reduce the stored water safely.",
+          "Remove sediment and sludge.",
+          "Scrub internal surfaces.",
+          "Wash and flush the tank.",
+          "Inspect walls and ceiling.",
+          "Check inlet and outlet arrangements.",
+          "Disinfect when appropriate.",
+          "Record the cleaning date."
+        ]
+      },
+
+      {
+        title: "Don't forget the cover",
+
+        text:
+          "A properly fitted cover is one of the simplest ways to reduce the entry of dust, insects and debris into a storage tank."
+      }
+
+    ],
+
+    source:
+      "Haryana PHED and Government of India guidance emphasizes routine inspection, removal of sediment, washing, inspection and appropriate disinfection."
+  },
+
+
+  "professional-cleaning": {
+
+    category: "PROFESSIONAL SERVICE",
+
+    title: "DIY Tank Cleaning vs Professional Tank Cleaning",
+
+    intro:
+      "Basic maintenance can sometimes be handled by household members, but larger tanks and difficult access situations may require trained workers and appropriate equipment.",
+
+    sections: [
+
+      {
+        title: "DIY cleaning may be suitable when",
+
+        bullets: [
+          "The tank is small and easily accessible.",
+          "There is no difficult access or confined-space issue.",
+          "The person cleaning it can work safely without entering a hazardous space.",
+          "Appropriate cleaning materials and protective equipment are available."
+        ]
+      },
+
+      {
+        title: "Professional cleaning becomes useful when",
+
+        bullets: [
+          "The tank is large.",
+          "There is significant sludge accumulation.",
+          "The tank is underground.",
+          "There are multiple tanks.",
+          "Access is difficult.",
+          "The tank has not been cleaned for a long time.",
+          "A systematic cleaning and inspection process is required."
+        ]
+      },
+
+      {
+        title: "What a professional service can provide",
+
+        text:
+          "A professional team can organize the work into inspection, draining, sludge removal, scrubbing, washing, flushing and final inspection. Where disinfection is required, the correct procedure and product instructions should be followed."
+      },
+
+      {
+        title: "Safety comes first",
+
+        text:
+          "Water tanks can have restricted access and potentially hazardous conditions. A person should not enter a tank simply because it needs cleaning. Appropriate safety assessment and equipment are important."
+      }
+
+    ]
+  }
+
+};
+
+
+/* ==========================================
+   OPEN GUIDE
+========================================== */
+
+function openGuide(id) {
+
+  const guide = guides[id];
+
+  if (!guide) return;
+
+  let html = `
+
+    <div class="article-category">
+      ${guide.category}
+    </div>
+
+    <h1 class="article-title">
+      ${guide.title}
+    </h1>
+
+    <p class="article-intro">
+      ${guide.intro}
+    </p>
+
+  `;
+
+
+  guide.sections.forEach(section => {
+
+    html += `
+
+      <section class="article-section">
+
+        <h2>
+          ${section.title}
+        </h2>
+
+    `;
+
+
+    if (section.text) {
+
+      html += `
+        <p>
+          ${section.text}
+        </p>
+      `;
+
+    }
+
+
+    if (section.bullets) {
+
+      html += `<ul>`;
+
+      section.bullets.forEach(item => {
+
+        html += `
+          <li>${item}</li>
+        `;
+
+      });
+
+      html += `</ul>`;
+
+    }
+
+
+    html += `</section>`;
+
+  });
+
+
+  if (guide.source) {
+
+    html += `
+
+      <div class="article-source">
+
+        <strong>
+          Reference note
+        </strong>
+
+        <p>
+          ${guide.source}
+        </p>
+
+      </div>
+
+    `;
+
+  }
+
+
+  html += `
+
+    <div class="article-bottom">
+
+      <h3>
+        Need your tank cleaned?
+      </h3>
+
+      <p>
+        VSH Tank Cleaning provides professional cleaning
+        services for residential, overhead, underground and
+        commercial water tanks.
+      </p>
+
+      <div class="article-buttons">
+
+        <a href="prices.html">
+          Book Cleaning →
+        </a>
+
+        <a href="tel:+919599057079">
+          ☎ +91 95990 57079
+        </a>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document.getElementById("guide-content").innerHTML = html;
+
+  document.getElementById("guide-overlay").classList.add("show");
+
+  document.body.classList.add("modal-open");
+
+}
+
+
+/* ==========================================
+   CLOSE GUIDE
+========================================== */
+
+function closeGuide() {
+
+  document
+    .getElementById("guide-overlay")
+    .classList.remove("show");
+
+  document.body.classList.remove("modal-open");
+
+}
+
+
+/* Close when clicking outside */
+
+document
+  .getElementById("guide-overlay")
+  .addEventListener("click", function(event) {
+
+    if (event.target === this) {
+      closeGuide();
+    }
+
+  });
+
+
+/* ESC */
+
+document.addEventListener("keydown", function(event) {
+
+  if (event.key === "Escape") {
+    closeGuide();
+  }
+
+});
+
+</script>
 
 </body>
 </html>
