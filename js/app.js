@@ -1524,3 +1524,173 @@ document.addEventListener(
     }
 
 })();
+/* =========================================================
+   ALWAYS SHOW CART LINK
+   VSH TANK CLEANING
+========================================================= */
+
+(function () {
+
+    function getCartItemCount() {
+        try {
+            const cart = JSON.parse(
+                localStorage.getItem("vsh_tank_cart") || "[]"
+            );
+
+            return cart.reduce(function (total, item) {
+                return total + Number(
+                    item.quantity || item.qty || 0
+                );
+            }, 0);
+
+        } catch (error) {
+            return 0;
+        }
+    }
+
+
+    function addCartToNavbar() {
+
+        // Find the actual navigation used by your pages
+        const nav =
+            document.querySelector(".navlinks") ||
+            document.querySelector(".nav-links") ||
+            document.querySelector(".navbar nav") ||
+            document.querySelector("header nav");
+
+        if (!nav) return;
+
+
+        // Don't create it twice
+        if (nav.querySelector(".always-cart-link")) {
+            updateCartLink();
+            return;
+        }
+
+
+        const cartLink = document.createElement("a");
+
+        cartLink.href = "cart.html";
+        cartLink.className = "always-cart-link";
+
+        cartLink.innerHTML = `
+            <span>🛒 Cart</span>
+            <span class="always-cart-count">0</span>
+        `;
+
+        nav.appendChild(cartLink);
+
+        updateCartLink();
+    }
+
+
+    function updateCartLink() {
+
+        const count = getCartItemCount();
+
+        document
+            .querySelectorAll(".always-cart-count")
+            .forEach(function (element) {
+                element.textContent = count;
+            });
+    }
+
+
+    function addCartCSS() {
+
+        if (document.getElementById("always-cart-css")) {
+            return;
+        }
+
+        const style = document.createElement("style");
+
+        style.id = "always-cart-css";
+
+        style.innerHTML = `
+
+            .always-cart-link {
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 7px !important;
+
+                padding: 8px 13px !important;
+
+                background: #e9f6ff !important;
+                color: #0878d1 !important;
+
+                border-radius: 999px !important;
+
+                text-decoration: none !important;
+
+                font-weight: 800 !important;
+                white-space: nowrap !important;
+
+                transition: all .2s ease !important;
+            }
+
+            .always-cart-link:hover {
+                background: #0878d1 !important;
+                color: #fff !important;
+                transform: translateY(-1px);
+            }
+
+            .always-cart-count {
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+
+                min-width: 23px !important;
+                height: 23px !important;
+
+                padding: 0 6px !important;
+
+                border-radius: 999px !important;
+
+                background: #0878d1 !important;
+                color: #fff !important;
+
+                font-size: 11px !important;
+                font-weight: 900 !important;
+                line-height: 1 !important;
+            }
+
+            .always-cart-link:hover .always-cart-count {
+                background: #fff !important;
+                color: #0878d1 !important;
+            }
+
+        `;
+
+        document.head.appendChild(style);
+    }
+
+
+    function initAlwaysCart() {
+
+        addCartCSS();
+        addCartToNavbar();
+        updateCartLink();
+
+        // Keep count synced
+        window.addEventListener("storage", updateCartLink);
+
+        // Also update after cart changes on same page
+        setInterval(updateCartLink, 500);
+    }
+
+
+    if (document.readyState === "loading") {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            initAlwaysCart
+        );
+
+    } else {
+
+        initAlwaysCart();
+
+    }
+
+})();
