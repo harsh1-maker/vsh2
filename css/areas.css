@@ -1,0 +1,757 @@
+/* =========================================
+   VSH TANK CLEANING — AREAS PAGE
+========================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color: #071a33;
+  background: #ffffff;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.navbar {
+  width: 100%;
+  min-height: 94px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 55px;
+
+  background: #ffffff;
+
+  border-bottom: 1px solid #e3edf6;
+
+  position: relative;
+  z-index: 20;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  text-decoration: none;
+  color: #071a33;
+}
+
+.logo-v {
+  width: 46px;
+  height: 46px;
+
+  border-radius: 50%;
+
+  background: #087cf0;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-text strong {
+  font-size: 22px;
+  line-height: 1.05;
+  font-weight: 800;
+}
+
+.logo-text small {
+  margin-top: 5px;
+
+  font-size: 11px;
+  letter-spacing: 1.4px;
+
+  color: #647b98;
+  font-weight: 800;
+}
+
+.navbar nav {
+  display: flex;
+  align-items: center;
+  gap: 31px;
+}
+
+.navbar nav a {
+  color: #29435f;
+  text-decoration: none;
+
+  font-size: 17px;
+  font-weight: 650;
+
+  white-space: nowrap;
+
+  transition: 0.2s ease;
+}
+
+.navbar nav a:hover,
+.navbar nav a.active {
+  color: #087cf0;
+}
+
+.cart-link {
+  color: #087cf0 !important;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.areas-page {
+  width: 100%;
+  max-width: 1280px;
+
+  margin: 0 auto;
+
+  padding: 58px 55px 100px;
+}
+
+
+/* =========================================
+   PIN CHECKER
+========================================= */
+
+.pin-section {
+  background: #f4f9fd;
+
+  border: 1px solid #dbe8f3;
+
+  border-radius: 20px;
+
+  padding: 29px 26px 26px;
+
+  margin-bottom: 92px;
+}
+
+.pin-section h2 {
+  margin: 0 0 18px;
+
+  font-size: 22px;
+  font-weight: 800;
+
+  color: #071a33;
+}
+
+.pin-row {
+  display: flex;
+  gap: 10px;
+}
+
+.pin-input-wrap {
+  flex: 1;
+
+  height: 61px;
+
+  display: flex;
+  align-items: center;
+
+  background: #ffffff;
+
+  border: 1px solid #d6e3ef;
+
+  border-radius: 17px;
+
+  padding: 0 17px;
+}
+
+.pin-input-wrap span {
+  color: #8194ac;
+  font-size: 27px;
+
+  margin-right: 10px;
+}
+
+.pin-input-wrap input {
+  width: 100%;
+
+  border: 0;
+  outline: none;
+
+  font-size: 18px;
+  color: #071a33;
+
+  font-family: inherit;
+}
+
+.pin-input-wrap input::placeholder {
+  color: #899bb1;
+}
+
+#pinCheckBtn {
+  width: 120px;
+
+  border: 0;
+
+  border-radius: 30px;
+
+  background: #071a33;
+  color: white;
+
+  font-size: 17px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+#pinCheckBtn:hover {
+  background: #087cf0;
+}
+
+#pinResult {
+  margin-top: 13px;
+  font-size: 15px;
+}
+
+.pin-success {
+  color: #0b8b63;
+}
+
+.pin-error {
+  color: #d22d2d;
+}
+
+
+/* =========================================
+   BROWSE BY AREA
+========================================= */
+
+.areas-section {
+  margin-bottom: 95px;
+}
+
+.areas-section > h1 {
+  font-size: 40px;
+
+  margin: 0 0 42px;
+
+  letter-spacing: -1.2px;
+
+  font-weight: 850;
+}
+
+.area-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 30px;
+}
+
+.area-card {
+  min-height: 285px;
+
+  border: 1px solid #dce7f1;
+
+  border-radius: 23px;
+
+  padding: 29px 26px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 12px 28px rgba(13, 55, 91, 0.07);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.area-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 18px 38px rgba(13, 55, 91, 0.11);
+}
+
+.area-card h2 {
+  margin: 0 0 21px;
+
+  font-size: 22px;
+
+  font-weight: 800;
+
+  color: #071a33;
+}
+
+.area-card h2:first-letter {
+  color: #087cf0;
+}
+
+.area-card h2 span {
+  margin-left: 4px;
+}
+
+.area-tags {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+}
+
+.area-tags span {
+  display: inline-flex;
+
+  align-items: center;
+
+  min-height: 38px;
+
+  padding: 0 16px;
+
+  border-radius: 22px;
+
+  background: #e8f5ff;
+
+  color: #005db4;
+
+  font-size: 16px;
+
+  font-weight: 600;
+}
+
+
+/* =========================================
+   TRANSPORT
+========================================= */
+
+.transport-section {
+  margin-bottom: 90px;
+}
+
+.transport-section h1 {
+  margin: 0 0 17px;
+
+  font-size: 40px;
+
+  letter-spacing: -1px;
+
+  font-weight: 850;
+}
+
+.transport-intro {
+  font-size: 20px;
+
+  line-height: 1.75;
+
+  color: #183957;
+
+  margin: 0 0 30px;
+}
+
+.transport-table-wrap {
+  width: 100%;
+
+  overflow: hidden;
+
+  border: 1px solid #d8e4ee;
+
+  border-radius: 21px;
+}
+
+.transport-table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 18px;
+}
+
+.transport-table th {
+  background: #071a33;
+
+  color: white;
+
+  text-align: left;
+
+  padding: 18px 20px;
+
+  font-size: 17px;
+
+  font-weight: 800;
+}
+
+.transport-table td {
+  padding: 19px 20px;
+
+  border-bottom: 1px solid #d8e4ee;
+
+  color: #132f4d;
+}
+
+.transport-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.transport-table tbody tr:nth-child(even) td {
+  background: #f5f9fc;
+}
+
+.transport-table td strong {
+  color: #071a33;
+}
+
+.transport-note {
+  margin: 32px 0 0;
+
+  font-size: 18px;
+
+  line-height: 1.7;
+
+  color: #173957;
+}
+
+
+/* =========================================
+   DON'T SEE YOUR AREA
+========================================= */
+
+.missing-area {
+  padding: 58px 0;
+
+  border-top: 1px solid #e6eef5;
+
+  border-bottom: 1px solid #e6eef5;
+
+  margin-bottom: 70px;
+}
+
+.missing-area h1 {
+  margin: 0 0 15px;
+
+  font-size: 40px;
+
+  font-weight: 850;
+}
+
+.missing-area p {
+  max-width: 760px;
+
+  margin: 0 0 25px;
+
+  font-size: 19px;
+
+  line-height: 1.7;
+
+  color: #48637e;
+}
+
+.missing-actions {
+  display: flex;
+
+  gap: 13px;
+}
+
+.whatsapp-btn,
+.contact-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 50px;
+
+  padding: 0 25px;
+
+  border-radius: 27px;
+
+  text-decoration: none;
+
+  font-weight: 800;
+
+  font-size: 16px;
+}
+
+.whatsapp-btn {
+  background: #20c66b;
+
+  color: white;
+}
+
+.contact-btn {
+  background: #087cf0;
+
+  color: white;
+}
+
+.whatsapp-btn:hover {
+  background: #13a957;
+}
+
+.contact-btn:hover {
+  background: #075fbd;
+}
+
+
+/* =========================================
+   RELATED PAGES
+========================================= */
+
+.related-section h2 {
+  margin: 0 0 29px;
+
+  font-size: 30px;
+
+  font-weight: 850;
+}
+
+.related-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+.related-card {
+  display: block;
+
+  min-height: 215px;
+
+  padding: 28px 26px;
+
+  border: 1px solid #dce7f1;
+
+  border-radius: 22px;
+
+  background: white;
+
+  text-decoration: none;
+
+  box-shadow:
+    0 8px 25px rgba(13, 55, 91, 0.05);
+
+  transition: 0.2s ease;
+}
+
+.related-card:hover {
+  transform: translateY(-3px);
+
+  border-color: #b9dafa;
+
+  box-shadow:
+    0 16px 35px rgba(13, 55, 91, 0.09);
+}
+
+.related-card > span {
+  color: #087cf0;
+
+  font-size: 13px;
+
+  font-weight: 850;
+
+  letter-spacing: 2px;
+}
+
+.related-card h3 {
+  margin: 12px 0 10px;
+
+  color: #071a33;
+
+  font-size: 22px;
+
+  font-weight: 850;
+}
+
+.related-card p {
+  margin: 0 0 16px;
+
+  color: #59718d;
+
+  line-height: 1.55;
+
+  font-size: 16px;
+}
+
+.related-card strong {
+  color: #087cf0;
+
+  font-size: 16px;
+}
+
+
+/* =========================================
+   FLOATING WHATSAPP
+========================================= */
+
+.floating-whatsapp {
+  position: fixed;
+
+  right: 25px;
+  bottom: 25px;
+
+  width: 58px;
+  height: 58px;
+
+  border-radius: 50%;
+
+  background: #20c66b;
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+
+  font-size: 25px;
+
+  box-shadow:
+    0 10px 30px rgba(32, 198, 107, 0.35);
+
+  z-index: 100;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1050px) {
+
+  .navbar {
+    padding: 0 28px;
+  }
+
+  .navbar nav {
+    gap: 18px;
+  }
+
+  .navbar nav a {
+    font-size: 15px;
+  }
+
+  .areas-page {
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+
+  .area-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .related-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 760px) {
+
+  .navbar {
+    min-height: auto;
+
+    padding: 17px 20px;
+
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 17px;
+  }
+
+  .navbar nav {
+    width: 100%;
+
+    overflow-x: auto;
+
+    padding-bottom: 5px;
+
+    gap: 19px;
+  }
+
+  .navbar nav a {
+    font-size: 14px;
+  }
+
+  .areas-page {
+    padding: 35px 20px 70px;
+  }
+
+  .pin-section {
+    padding: 22px 18px;
+
+    margin-bottom: 55px;
+  }
+
+  .pin-row {
+    flex-direction: column;
+  }
+
+  #pinCheckBtn {
+    width: 100%;
+    height: 54px;
+  }
+
+  .areas-section > h1,
+  .transport-section h1,
+  .missing-area h1 {
+    font-size: 31px;
+  }
+
+  .area-grid {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+
+  .area-card {
+    min-height: auto;
+  }
+
+  .transport-intro,
+  .transport-note {
+    font-size: 17px;
+  }
+
+  .transport-table {
+    min-width: 650px;
+  }
+
+  .transport-table-wrap {
+    overflow-x: auto;
+  }
+
+  .missing-actions {
+    flex-direction: column;
+  }
+
+  .whatsapp-btn,
+  .contact-btn {
+    width: 100%;
+  }
+
+  .related-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
