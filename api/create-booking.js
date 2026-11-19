@@ -1,86 +1,549 @@
+const crypto = require("crypto");
+
+const RAZORPAY_KEY_ID =
+    process.env.RAZORPAY_KEY_ID;
+
+const RAZORPAY_KEY_SECRET =
+    process.env.RAZORPAY_KEY_SECRET;
+
+const RESEND_API_KEY =
+    process.env.RESEND_API_KEY;
+
+const OWNER_EMAIL =
+    process.env.OWNER_EMAIL;
+
+const FROM_EMAIL =
+    process.env.FROM_EMAIL;
+
+
 /* =========================================================
-   VSH TANK CLEANING
-   CREATE BOOKING / RAZORPAY ORDER
+   SEND EMAIL
 ========================================================= */
 
-export default async function handler(req, res) {
+async function sendEmail({
+    to,
+    subject,
+    html
+}) {
 
-    /* =====================================================
-       ALLOW POST ONLY
-    ===================================================== */
-
-    if (req.method !== "POST") {
-
-        return res.status(405).json({
-            success: false,
-            message: "Method not allowed"
-        });
-
-    }
-
-    /* =====================================================
-       CHECK RAZORPAY CREDENTIALS
-    ===================================================== */
-
-    const keyId =
-        process.env.RAZORPAY_KEY_ID;
-
-    const keySecret =
-        process.env.RAZORPAY_KEY_SECRET;
-
-    if (!keyId || !keySecret) {
-
+    if (
+        !RESEND_API_KEY ||
+        !to ||
+        !FROM_EMAIL
+    ) {
         console.error(
-            "Razorpay environment variables are missing."
+            "Email configuration missing."
         );
 
-        return res.status(500).json({
-            success: false,
-            message:
-                "Payment system is not configured. Please contact VSH Tank Cleaning."
-        });
-
+        return false;
     }
 
     try {
 
-        /* =================================================
-           READ REQUEST
-        ================================================= */
+        const response =
+            await fetch(
+                "https://api.resend.com/emails",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Authorization":
+                            `Bearer ${RESEND_API_KEY}`,
+
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            from:
+                                FROM_EMAIL,
+
+                            to: [to],
+
+                            subject:
+                                subject,
+
+                            html:
+                                html
+                        })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            console.error(
+                "Resend error:",
+                data
+            );
+
+            return false;
+        }
+
+
+        console.log(
+            "Email sent:",
+            data
+        );
+
+        return true;
+
+    } catch (error) {
+
+        console.error(
+            "Email sending failed:",
+            error
+        );
+
+        return false;
+    }
+}
+
+
+/* =========================================================
+   FORMAT MONEY
+========================================================= */
+
+function money(amount) {
+
+    return `₹${Number(amount || 0)
+        .toLocaleString("en-IN")}`;
+}
+
+
+/* =========================================================
+   CREATE BOOKING EMAIL
+========================================================= */
+
+function createBookingEmail(data) {
+
+    const customer =
+        data.customer || {};
+
+    const items =
+        data.items || [];
+
+    const pricing =
+        data.pricing || {};
+
+
+    let itemRows = "";
+
+
+    items.forEach(item => {
+
+        itemRows += `
+            <tr>
+
+                <td style="
+                    padding:10px;
+                    border-bottom:1px solid #eee;
+                ">
+                    ${item.name}
+                </td>
+
+                <td style="
+                    padding:10px;
+                    border-bottom:1px solid #eee;
+                    text-align:center;
+                ">
+                    ${item.quantity}
+                </td>
+
+                <td style="
+                    padding:10px;
+                    border-bottom:1px solid #eee;
+                    text-align:right;
+                ">
+                    ${money(
+                        Number(item.price) *
+                        Number(item.quantity)
+                    )}
+                </td>
+
+            </tr>
+        `;
+    });
+
+
+    return `
+
+<!DOCTYPE html>
+
+<html>
+
+<body style="
+    margin:0;
+    padding:0;
+    background:#f4f7fb;
+    font-family:Arial,Helvetica,sans-serif;
+">
+
+<div style="
+    max-width:700px;
+    margin:30px auto;
+    background:#ffffff;
+    border-radius:12px;
+    overflow:hidden;
+    border:1px solid #e5eaf0;
+">
+
+    <div style="
+        background:#071b33;
+        padding:25px;
+        color:white;
+    ">
+
+        <h1 style="
+            margin:0;
+            font-size:24px;
+        ">
+            New VSH Tank Cleaning Booking
+        </h1>
+
+        <p style="
+            margin:8px 0 0;
+            color:#c9def0;
+        ">
+            A new booking has been submitted.
+        </p>
+
+    </div>
+
+
+    <div style="
+        padding:25px;
+    ">
+
+        <h2 style="
+            color:#071b33;
+        ">
+            Customer Details
+        </h2>
+
+
+        <table
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            style="
+                border-collapse:collapse;
+            "
+        >
+
+            <tr>
+                <td style="padding:7px 0;">
+                    <strong>Name</strong>
+                </td>
+
+                <td style="padding:7px 0;">
+                    ${customer.name || "-"}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td style="padding:7px 0;">
+                    <strong>Phone</strong>
+                </td>
+
+                <td style="padding:7px 0;">
+                    ${customer.phone || "-"}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td style="padding:7px 0;">
+                    <strong>Address</strong>
+                </td>
+
+                <td style="padding:7px 0;">
+                    ${customer.address || "-"}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td style="padding:7px 0;">
+                    <strong>Service Date</strong>
+                </td>
+
+                <td style="padding:7px 0;">
+                    ${customer.serviceDate || "-"}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td style="padding:7px 0;">
+                    <strong>Payment</strong>
+                </td>
+
+                <td style="padding:7px 0;">
+                    ${customer.paymentMethod || "-"}
+                </td>
+            </tr>
+
+        </table>
+
+
+        <h2 style="
+            color:#071b33;
+            margin-top:30px;
+        ">
+            Services
+        </h2>
+
+
+        <table
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            style="
+                border-collapse:collapse;
+                border:1px solid #e5eaf0;
+            "
+        >
+
+            <thead>
+
+                <tr style="
+                    background:#f4f7fb;
+                ">
+
+                    <th style="
+                        padding:10px;
+                        text-align:left;
+                    ">
+                        Service
+                    </th>
+
+                    <th style="
+                        padding:10px;
+                        text-align:center;
+                    ">
+                        Qty
+                    </th>
+
+                    <th style="
+                        padding:10px;
+                        text-align:right;
+                    ">
+                        Amount
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                ${itemRows}
+
+            </tbody>
+
+        </table>
+
+
+        <div style="
+            margin-top:25px;
+            padding:18px;
+            background:#eef7ff;
+            border-radius:8px;
+        ">
+
+            <p style="
+                margin:5px 0;
+            ">
+                Subtotal:
+                <strong>
+                    ${money(pricing.subtotal)}
+                </strong>
+            </p>
+
+
+            <p style="
+                margin:5px 0;
+            ">
+                Discount:
+                <strong style="color:#16a34a;">
+                    -${money(pricing.quantityDiscount)}
+                </strong>
+            </p>
+
+
+            <p style="
+                margin:5px 0;
+            ">
+                Online Discount:
+                <strong style="color:#16a34a;">
+                    -${money(pricing.onlineDiscount)}
+                </strong>
+            </p>
+
+
+            <hr style="
+                border:0;
+                border-top:1px solid #d8e5ef;
+                margin:12px 0;
+            ">
+
+
+            <p style="
+                margin:5px 0;
+                font-size:20px;
+            ">
+
+                <strong>
+                    Total:
+                </strong>
+
+                <strong style="
+                    color:#0878d1;
+                ">
+                    ${money(pricing.total)}
+                </strong>
+
+            </p>
+
+        </div>
+
+
+        <p style="
+            margin-top:25px;
+            color:#68778c;
+            font-size:13px;
+        ">
+            This booking was submitted through the
+            VSH Tank Cleaning website.
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
+
+`;
+}
+
+
+/* =========================================================
+   RAZORPAY ORDER
+========================================================= */
+
+async function createRazorpayOrder(amount) {
+
+    const auth =
+        Buffer.from(
+            `${RAZORPAY_KEY_ID}:${RAZORPAY_KEY_SECRET}`
+        ).toString("base64");
+
+
+    const response =
+        await fetch(
+            "https://api.razorpay.com/v1/orders",
+            {
+                method: "POST",
+
+                headers: {
+                    "Authorization":
+                        `Basic ${auth}`,
+
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body:
+                    JSON.stringify({
+
+                        amount:
+                            Math.round(
+                                Number(amount) * 100
+                            ),
+
+                        currency:
+                            "INR",
+
+                        receipt:
+                            `vsh_${Date.now()}`,
+
+                        notes: {
+                            source:
+                                "VSH Tank Cleaning website"
+                        }
+
+                    })
+            }
+        );
+
+
+    const data =
+        await response.json();
+
+
+    if (!response.ok) {
+
+        console.error(
+            "Razorpay order error:",
+            data
+        );
+
+        throw new Error(
+            data.error?.description ||
+            "Unable to create Razorpay order."
+        );
+    }
+
+
+    return data;
+}
+
+
+/* =========================================================
+   MAIN HANDLER
+========================================================= */
+
+module.exports = async function handler(
+    req,
+    res
+) {
+
+    if (req.method !== "POST") {
+
+        return res.status(405).json({
+            message:
+                "Method not allowed."
+        });
+    }
+
+
+    try {
 
         const body =
             typeof req.body === "string"
                 ? JSON.parse(req.body)
                 : req.body;
 
-        if (!body) {
-
-            return res.status(400).json({
-                success: false,
-                message: "Invalid request."
-            });
-
-        }
 
         const customer =
             body.customer || {};
 
         const items =
-            Array.isArray(body.items)
-                ? body.items
-                : [];
+            body.items || [];
 
         const pricing =
             body.pricing || {};
 
-        const paymentMethod =
-            customer.paymentMethod ||
-            body.paymentMethod ||
-            "after-service";
-
-        /* =================================================
-           BASIC VALIDATION
-        ================================================= */
 
         if (
             !customer.name ||
@@ -90,372 +553,128 @@ export default async function handler(req, res) {
         ) {
 
             return res.status(400).json({
-                success: false,
+
                 message:
                     "Please provide your name, phone number, address and service date."
-            });
 
+            });
         }
 
-        if (items.length === 0) {
-
-            return res.status(400).json({
-                success: false,
-                message: "Your cart is empty."
-            });
-
-        }
 
         /* =================================================
-           SERVER-SIDE PRICE LIST
-
-           IMPORTANT:
-           Do not trust prices sent by the browser.
+           ONLINE PAYMENT
         ================================================= */
 
-        const PRICE_LIST = {
-
-            "Overhead Tank Cleaning - 1000 Litres": 499,
-            "Overhead Tank Cleaning - 2000 Litres": 699,
-            "Overhead Tank Cleaning - 3000 Litres": 899,
-            "Overhead Tank Cleaning - 5000 Litres": 1199,
-
-            "Underground Tank Cleaning - 1000 Litres": 799,
-            "Underground Tank Cleaning - 2000 Litres": 999,
-            "Underground Tank Cleaning - 3000 Litres": 1299,
-            "Underground Tank Cleaning - 5000 Litres": 1699
-
-        };
-
-        /* =================================================
-           CALCULATE ORDER FROM SERVER-SIDE PRICES
-        ================================================= */
-
-        let subtotal = 0;
-        let totalItems = 0;
-
-        const verifiedItems = [];
-
-        for (const item of items) {
-
-            const name = item.name;
-
-            const quantity =
-                Math.max(
-                    1,
-                    Number(item.quantity) || 1
-                );
+        if (
+            customer.paymentMethod ===
+            "online"
+        ) {
 
             if (
-                !PRICE_LIST.hasOwnProperty(name)
+                !RAZORPAY_KEY_ID ||
+                !RAZORPAY_KEY_SECRET
             ) {
 
-                return res.status(400).json({
-                    success: false,
-                    message:
-                        `Invalid service: ${name}`
-                });
+                return res.status(500).json({
 
+                    message:
+                        "Razorpay configuration is missing."
+
+                });
             }
 
-            const price =
-                PRICE_LIST[name];
 
-            subtotal +=
-                price * quantity;
+            const order =
+                await createRazorpayOrder(
+                    pricing.total
+                );
 
-            totalItems += quantity;
-
-            verifiedItems.push({
-
-                name: name,
-
-                price: price,
-
-                quantity: quantity
-
-            });
-
-        }
-
-        /* =================================================
-           BULK DISCOUNT
-        ================================================= */
-
-        let discountRate = 0;
-
-        if (totalItems >= 5) {
-
-            discountRate = 0.15;
-
-        } else if (totalItems >= 3) {
-
-            discountRate = 0.12;
-
-        } else if (totalItems >= 2) {
-
-            discountRate = 0.10;
-
-        }
-
-        const quantityDiscount =
-            subtotal * discountRate;
-
-        /* =================================================
-           ONLINE PAYMENT DISCOUNT
-        ================================================= */
-
-        let onlineDiscount = 0;
-
-        if (
-            paymentMethod === "online"
-        ) {
-
-            onlineDiscount =
-                (
-                    subtotal -
-                    quantityDiscount
-                ) * 0.05;
-
-        }
-
-        /* =================================================
-           FINAL TOTAL
-        ================================================= */
-
-        const total =
-            subtotal -
-            quantityDiscount -
-            onlineDiscount;
-
-        /* =================================================
-           AFTER-SERVICE BOOKING
-
-           No Razorpay order is needed.
-        ================================================= */
-
-        if (
-            paymentMethod !== "online"
-        ) {
-
-            console.log(
-                "VSH Tank Cleaning booking:",
-                {
-                    customer,
-                    items: verifiedItems,
-                    pricing: {
-                        subtotal,
-                        quantityDiscount,
-                        onlineDiscount,
-                        total
-                    }
-                }
-            );
 
             return res.status(200).json({
 
                 success: true,
 
-                bookingType:
-                    "after-service",
+                key:
+                    RAZORPAY_KEY_ID,
 
-                message:
-                    "Booking created successfully.",
+                orderId:
+                    order.id,
 
-                booking: {
+                amount:
+                    order.amount,
 
-                    customer,
-
-                    items:
-                        verifiedItems,
-
-                    pricing: {
-
-                        subtotal:
-                            subtotal,
-
-                        quantityDiscount:
-                            quantityDiscount,
-
-                        onlineDiscount:
-                            0,
-
-                        total:
-                            total
-
-                    }
-
-                }
+                currency:
+                    order.currency
 
             });
-
         }
 
-        /* =================================================
-           ONLINE PAYMENT
 
-           Razorpay amount must be in paise.
+        /* =================================================
+           PAY AFTER SERVICE
         ================================================= */
 
-        const amountInPaise =
-            Math.round(
-                total * 100
-            );
+        let emailSent = false;
 
-        if (amountInPaise <= 0) {
 
-            return res.status(400).json({
-                success: false,
-                message:
-                    "Invalid payment amount."
-            });
+        if (OWNER_EMAIL) {
 
+            emailSent =
+                await sendEmail({
+
+                    to:
+                        OWNER_EMAIL,
+
+                    subject:
+                        `New VSH Tank Cleaning Booking — ${customer.name}`,
+
+                    html:
+                        createBookingEmail(
+                            body
+                        )
+
+                });
         }
 
-        /* =================================================
-           CREATE RAZORPAY ORDER
-        ================================================= */
 
-        const razorpayResponse =
-            await fetch(
-                "https://api.razorpay.com/v1/orders",
-                {
+        console.log(
+            "Pay-after-service booking:",
+            {
+                customer,
+                items,
+                pricing,
+                emailSent
+            }
+        );
 
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json",
-
-                        "Authorization":
-                            "Basic " +
-                            Buffer.from(
-                                `${keyId}:${keySecret}`
-                            ).toString("base64")
-
-                    },
-
-                    body: JSON.stringify({
-
-                        amount:
-                            amountInPaise,
-
-                        currency:
-                            "INR",
-
-                        receipt:
-                            `VSH-${Date.now()}`,
-
-                        notes: {
-
-                            customerName:
-                                customer.name,
-
-                            customerPhone:
-                                customer.phone,
-
-                            serviceDate:
-                                customer.serviceDate
-
-                        }
-
-                    })
-
-                }
-            );
-
-        const razorpayData =
-            await razorpayResponse.json();
-
-        /* =================================================
-           RAZORPAY ERROR
-        ================================================= */
-
-        if (!razorpayResponse.ok) {
-
-            console.error(
-                "Razorpay order error:",
-                razorpayData
-            );
-
-            return res.status(
-                razorpayResponse.status
-            ).json({
-
-                success: false,
-
-                message:
-                    razorpayData.error?.description ||
-                    "Unable to create Razorpay order."
-
-            });
-
-        }
-
-        /* =================================================
-           RETURN ORDER TO FRONTEND
-        ================================================= */
 
         return res.status(200).json({
 
             success: true,
 
-            key:
-                keyId,
+            message:
+                "Booking confirmed successfully.",
 
-            amount:
-                razorpayData.amount,
-
-            currency:
-                razorpayData.currency,
-
-            orderId:
-                razorpayData.id,
-
-            booking: {
-
-                customer,
-
-                items:
-                    verifiedItems,
-
-                pricing: {
-
-                    subtotal:
-                        subtotal,
-
-                    quantityDiscount:
-                        quantityDiscount,
-
-                    onlineDiscount:
-                        onlineDiscount,
-
-                    total:
-                        total
-
-                }
-
-            }
+            emailSent:
+                emailSent
 
         });
+
 
     } catch (error) {
 
         console.error(
-            "CREATE BOOKING ERROR:",
+            "Create booking error:",
             error
         );
 
+
         return res.status(500).json({
 
-            success: false,
-
             message:
-                "Unable to create booking. Please try again."
+                error.message ||
+                "Booking could not be completed."
 
         });
-
     }
-
-}
+};
