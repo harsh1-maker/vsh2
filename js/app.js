@@ -1349,3 +1349,178 @@ document.addEventListener(
 
     }
 );
+/* =========================================================
+   GLOBAL CART NAVIGATION
+   Shows Cart on EVERY page
+========================================================= */
+
+(function addGlobalCartNav() {
+
+    function createCartLink() {
+        // Don't create duplicate cart links
+        if (
+            document.querySelector('.global-cart-link') ||
+            document.querySelector('a[href="cart.html"]')
+        ) {
+            return;
+        }
+
+        const nav =
+            document.querySelector('.navlinks') ||
+            document.querySelector('.nav-links') ||
+            document.querySelector('nav');
+
+        if (!nav) return;
+
+        const cartLink = document.createElement('a');
+
+        cartLink.href = 'cart.html';
+        cartLink.className = 'global-cart-link';
+
+        cartLink.innerHTML = `
+            🛒 Cart
+            <span class="global-cart-count">0</span>
+        `;
+
+        nav.appendChild(cartLink);
+
+        updateGlobalCartCount();
+    }
+
+
+    function updateGlobalCartCount() {
+
+        let count = 0;
+
+        try {
+            const saved =
+                JSON.parse(localStorage.getItem('vshCart') || '[]');
+
+            count = saved.reduce(
+                (total, item) =>
+                    total + Number(item.qty || 0),
+                0
+            );
+
+        } catch (error) {
+            console.error('Cart count error:', error);
+        }
+
+        document
+            .querySelectorAll('.global-cart-count')
+            .forEach(el => {
+                el.textContent = count;
+            });
+    }
+
+
+    function injectCartStyles() {
+
+        if (document.getElementById('global-cart-nav-style')) {
+            return;
+        }
+
+        const style = document.createElement('style');
+
+        style.id = 'global-cart-nav-style';
+
+        style.textContent = `
+
+            .global-cart-link {
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 7px !important;
+
+                padding: 9px 13px !important;
+
+                border-radius: 999px !important;
+
+                background: #eaf6ff !important;
+                color: #0878d1 !important;
+
+                font-weight: 900 !important;
+                text-decoration: none !important;
+
+                white-space: nowrap !important;
+
+                transition:
+                    background .2s ease,
+                    color .2s ease,
+                    transform .2s ease !important;
+            }
+
+            .global-cart-link:hover {
+                background: #0878d1 !important;
+                color: #ffffff !important;
+                transform: translateY(-1px);
+            }
+
+            .global-cart-count {
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+
+                min-width: 23px !important;
+                height: 23px !important;
+
+                padding: 0 6px !important;
+
+                border-radius: 999px !important;
+
+                background: #0878d1 !important;
+                color: #ffffff !important;
+
+                font-size: 11px !important;
+                font-weight: 900 !important;
+                line-height: 1 !important;
+            }
+
+            .global-cart-link:hover .global-cart-count {
+                background: #ffffff !important;
+                color: #0878d1 !important;
+            }
+
+            @media (max-width: 900px) {
+
+                .global-cart-link {
+                    padding: 8px 11px !important;
+                    font-size: 12px !important;
+                }
+
+            }
+
+        `;
+
+        document.head.appendChild(style);
+    }
+
+
+    function initGlobalCart() {
+
+        injectCartStyles();
+        createCartLink();
+        updateGlobalCartCount();
+
+        // Update count if cart changes
+        window.addEventListener('storage', updateGlobalCartCount);
+
+        // Keep count updated when navigating/interacting
+        setInterval(updateGlobalCartCount, 500);
+    }
+
+
+    if (document.readyState === 'loading') {
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            initGlobalCart
+        );
+
+    } else {
+
+        initGlobalCart();
+
+    }
+
+})();
