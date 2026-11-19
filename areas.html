@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>VSH Tank Cleaning | Service Areas</title>
+  <title>Water Tank Cleaning Areas | VSH Tank Cleaning</title>
 
+  <!-- Your common CSS -->
   <link rel="stylesheet" href="css/styles.css">
 
+  <!-- Areas page CSS -->
+  <link rel="stylesheet" href="css/areas.css">
 </head>
 
 <body>
@@ -17,188 +19,366 @@
 
   <div class="logo">
     <a href="index.html">
-      VSH Tank Cleaning
+      <span class="logo-v">V</span>
+
+      <span class="logo-text">
+        <strong>VSH Tank Cleaning</strong>
+        <small>PROFESSIONAL WATER TANK CLEANING</small>
+      </span>
     </a>
   </div>
 
   <nav>
-
-    <a href="index.html">
-      Home
-    </a>
-
-    <a href="services.html">
-      Services
-    </a>
-
-    <a href="areas.html" class="active">
-      Areas
-    </a>
-
-    <a href="prices.html">
-      Prices
-    </a>
-
-    <a href="process.html">
-      Process
-    </a>
-
-    <a href="reviews.html">
-      Reviews
-    </a>
-
-    <a href="guides.html">
-      Guides
-    </a>
-
-    <a href="about.html">
-      About Us
-    </a>
-
-    <a href="contact.html">
-      Contact
-    </a>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="prices.html">Prices</a>
+    <a href="areas.html" class="active">Areas</a>
+    <a href="process.html">Process</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="guides.html">Guides</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
 
     <a href="cart.html" class="cart-link">
-      🛒 Cart
-      <span id="cart-count">0</span>
+      🛒 Cart <span id="cart-count">0</span>
     </a>
-
   </nav>
 
 </header>
 
 
-<main class="page">
+<main class="areas-page">
 
-<section class="hero-section">
+  <!-- PIN CHECKER -->
+  <section class="pin-section">
 
-  <h1>
-    Our Service Areas
-  </h1>
+    <h2>Check your PIN code</h2>
 
-  <p>
-    Professional water tank cleaning across Delhi NCR.
-  </p>
+    <div class="pin-row">
 
-</section>
+      <div class="pin-input-wrap">
+        <span>⌖</span>
+
+        <input
+          type="text"
+          id="pinInput"
+          maxlength="6"
+          placeholder="Your PIN code, e.g. 110028"
+        >
+      </div>
+
+      <button id="pinCheckBtn">
+        Check
+      </button>
+
+    </div>
+
+    <div id="pinResult"></div>
+
+  </section>
 
 
-<section class="pricing-grid">
+  <!-- AREAS -->
+  <section class="areas-section">
 
-  <div class="price-card">
+    <h1>Browse by area</h1>
 
-    <h2>
-      Gurgaon / Gurugram
-    </h2>
+    <div class="area-grid">
 
-    <p class="tank-size">
-      Residential & commercial tank cleaning
+      <!-- DELHI NCR -->
+      <div class="area-card">
+
+        <h2>⌖ <span>Delhi NCR</span></h2>
+
+        <div class="area-tags">
+          <span>Delhi</span>
+          <span>North Delhi</span>
+          <span>South Delhi</span>
+          <span>West Delhi</span>
+        </div>
+
+      </div>
+
+
+      <!-- WEST DELHI -->
+      <div class="area-card">
+
+        <h2>⌖ <span>West Delhi</span></h2>
+
+        <div class="area-tags">
+          <span>Janakpuri</span>
+          <span>Kirti Nagar</span>
+          <span>Mayapuri</span>
+          <span>Naraina</span>
+          <span>Paschim Vihar</span>
+          <span>Punjabi Bagh</span>
+          <span>Rajouri Garden</span>
+          <span>Uttam Nagar</span>
+        </div>
+
+      </div>
+
+
+      <!-- CENTRAL DELHI -->
+      <div class="area-card">
+
+        <h2>⌖ <span>Central Delhi</span></h2>
+
+        <div class="area-tags">
+          <span>Karol Bagh</span>
+          <span>Patel Nagar</span>
+        </div>
+
+      </div>
+
+
+      <!-- SOUTH DELHI -->
+      <div class="area-card">
+
+        <h2>⌖ <span>South Delhi</span></h2>
+
+        <div class="area-tags">
+          <span>Saket</span>
+          <span>Vasant Kunj</span>
+        </div>
+
+      </div>
+
+
+      <!-- SOUTH WEST -->
+      <div class="area-card">
+
+        <h2>⌖ <span>South West Delhi</span></h2>
+
+        <div class="area-tags">
+          <span>Delhi Cantt</span>
+          <span>Dwarka</span>
+        </div>
+
+      </div>
+
+
+      <!-- NORTH WEST -->
+      <div class="area-card">
+
+        <h2>⌖ <span>North West Delhi</span></h2>
+
+        <div class="area-tags">
+          <span>Pitampura</span>
+          <span>Rohini</span>
+        </div>
+
+      </div>
+
+
+      <!-- UP -->
+      <div class="area-card">
+
+        <h2>⌖ <span>Uttar Pradesh</span></h2>
+
+        <div class="area-tags">
+          <span>Ghaziabad</span>
+          <span>Greater Noida</span>
+          <span>Noida</span>
+        </div>
+
+      </div>
+
+
+      <!-- HARYANA -->
+      <div class="area-card">
+
+        <h2>⌖ <span>Haryana</span></h2>
+
+        <div class="area-tags">
+          <span>Faridabad</span>
+          <span>Gurgaon</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- TRANSPORT -->
+  <section class="transport-section">
+
+    <h1>How transport works</h1>
+
+    <p class="transport-intro">
+      A transport charge of ₹0–₹100 may apply,
+      <strong>once per booking</strong>, based on road distance
+      from our Naraina office to your PIN code.
     </p>
 
-    <ul>
-      <li>Home tanks</li>
-      <li>Apartment societies</li>
-      <li>Commercial properties</li>
-      <li>Overhead tanks</li>
-      <li>Underground tanks</li>
-    </ul>
 
-    <a href="prices.html" class="checkout-btn">
-      Book in Gurgaon
-    </a>
+    <div class="transport-table-wrap">
 
-  </div>
+      <table class="transport-table">
+
+        <thead>
+          <tr>
+            <th>Road distance from Naraina office</th>
+            <th>Transportation (may apply, once per booking)</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Up to 10 km</td>
+            <td><strong>Free</strong></td>
+          </tr>
+
+          <tr>
+            <td>Above 10 km up to 15 km</td>
+            <td><strong>₹50</strong></td>
+          </tr>
+
+          <tr>
+            <td>Above 15 km up to 20 km</td>
+            <td><strong>₹75</strong></td>
+          </tr>
+
+          <tr>
+            <td>Above 20 km</td>
+            <td><strong>₹100</strong></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
 
 
-  <div class="price-card">
-
-    <h2>
-      Delhi
-    </h2>
-
-    <p class="tank-size">
-      Delhi residential & commercial areas
+    <p class="transport-note">
+      If your PIN code isn't in our verified list yet, you can still book —
+      our team confirms the charge with you before any payment.
     </p>
 
-    <ul>
-      <li>North Delhi</li>
-      <li>South Delhi</li>
-      <li>East Delhi</li>
-      <li>West Delhi</li>
-      <li>Residential societies</li>
-    </ul>
-
-    <a href="prices.html" class="checkout-btn">
-      Book in Delhi
-    </a>
-
-  </div>
+  </section>
 
 
-  <div class="price-card">
+  <!-- DON'T SEE AREA -->
+  <section class="missing-area">
 
-    <h2>
-      Noida & Ghaziabad
-    </h2>
+    <h1>Don't see your area?</h1>
 
-    <p class="tank-size">
-      NCR tank cleaning services
+    <p>
+      We may still be able to serve you. Send us your PIN code and
+      we'll check availability for your location.
     </p>
 
-    <ul>
-      <li>Residential tanks</li>
-      <li>Society tanks</li>
-      <li>Commercial tanks</li>
-      <li>Multiple tanks</li>
-      <li>Large storage tanks</li>
-    </ul>
+    <div class="missing-actions">
 
-    <a href="prices.html" class="checkout-btn">
-      Check Prices
-    </a>
+      <a href="https://wa.me/919735450395" class="whatsapp-btn">
+        WhatsApp us
+      </a>
 
-  </div>
+      <a href="contact.html" class="contact-btn">
+        Contact us
+      </a>
 
-</section>
-
-
-<section class="discount-info">
-
-  <h2>
-    Don't See Your Area?
-  </h2>
-
-  <div class="discount-grid">
-
-    <div>
-      <strong>WhatsApp</strong>
-      <span>Send your location</span>
     </div>
 
-    <div>
-      <strong>Call</strong>
-      <span>Check availability</span>
+  </section>
+
+
+  <!-- RELATED -->
+  <section class="related-section">
+
+    <h2>Related pages</h2>
+
+    <div class="related-grid">
+
+      <a href="areas.html" class="related-card">
+
+        <span>SERVICE AREA</span>
+
+        <h3>Delhi</h3>
+
+        <p>
+          Water tank cleaning services across Delhi from our
+          Naraina office. Overhead & underground tanks...
+        </p>
+
+        <strong>Read more →</strong>
+
+      </a>
+
+
+      <a href="prices.html" class="related-card">
+
+        <span>PRICES</span>
+
+        <h3>Prices</h3>
+
+        <p>
+          Water tank cleaning price in Delhi NCR:
+          overhead from ₹499, underground from ₹799.
+        </p>
+
+        <strong>Read more →</strong>
+
+      </a>
+
+
+      <a href="cart.html" class="related-card">
+
+        <span>BOOKING</span>
+
+        <h3>Book online</h3>
+
+        <p>
+          Book water tank cleaning online, add your tanks,
+          check your PIN and choose your payment method.
+        </p>
+
+        <strong>Read more →</strong>
+
+      </a>
+
     </div>
 
-    <div>
-      <strong>Quick Response</strong>
-      <span>Easy booking</span>
-    </div>
-
-    <div>
-      <strong>Delhi NCR</strong>
-      <span>Wide service coverage</span>
-    </div>
-
-  </div>
-
-</section>
+  </section>
 
 </main>
 
 
+<!-- WHATSAPP FLOAT -->
+<a
+  href="https://wa.me/919735450395"
+  class="floating-whatsapp"
+  target="_blank"
+>
+  ☎
+</a>
+
+
 <script src="js/app.js"></script>
+
+<script>
+document.getElementById("pinCheckBtn").addEventListener("click", function () {
+
+  const pin = document.getElementById("pinInput").value.trim();
+  const result = document.getElementById("pinResult");
+
+  if (!/^[0-9]{6}$/.test(pin)) {
+    result.innerHTML =
+      "<span class='pin-error'>Please enter a valid 6-digit PIN code.</span>";
+    return;
+  }
+
+  result.innerHTML =
+    "<span class='pin-success'>✓ Thanks! We'll confirm service availability for PIN " +
+    pin +
+    " with you.</span>";
+
+});
+</script>
 
 </body>
 </html>
