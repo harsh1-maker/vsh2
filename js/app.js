@@ -1694,3 +1694,309 @@ document.addEventListener(
     }
 
 })();
+/* =========================================================
+   VSH TANK CLEANING — FLOATING CART
+   Always visible on every page
+========================================================= */
+
+(function initFloatingCart() {
+
+    function getCartCount() {
+        try {
+            const cart = JSON.parse(
+                localStorage.getItem("vsh_tank_cart") || "[]"
+            );
+
+            return cart.reduce(function (total, item) {
+                return total + Number(item.quantity || 0);
+            }, 0);
+
+        } catch (error) {
+            return 0;
+        }
+    }
+
+    function createFloatingCart() {
+
+        // Prevent duplicate button
+        if (document.getElementById("vsh-floating-cart")) {
+            updateFloatingCart();
+            return;
+        }
+
+        const button = document.createElement("a");
+
+        button.id = "vsh-floating-cart";
+        button.href = "cart.html";
+        button.setAttribute("aria-label", "Open shopping cart");
+
+        button.innerHTML = `
+            <span class="vsh-cart-icon">🛒</span>
+
+            <span class="vsh-cart-text">
+                <strong>Cart</strong>
+                <small>View booking</small>
+            </span>
+
+            <span class="vsh-floating-cart-count">0</span>
+        `;
+
+        document.body.appendChild(button);
+
+        updateFloatingCart();
+    }
+
+
+    function updateFloatingCart() {
+
+        const count = getCartCount();
+
+        const countElement =
+            document.querySelector(".vsh-floating-cart-count");
+
+        if (countElement) {
+            countElement.textContent = count;
+        }
+    }
+
+
+    function addFloatingCartCSS() {
+
+        if (document.getElementById("vsh-floating-cart-css")) {
+            return;
+        }
+
+        const style = document.createElement("style");
+
+        style.id = "vsh-floating-cart-css";
+
+        style.textContent = `
+
+            #vsh-floating-cart {
+                position: fixed;
+                right: 24px;
+                bottom: 24px;
+
+                z-index: 999999;
+
+                display: flex;
+                align-items: center;
+                gap: 11px;
+
+                min-width: 170px;
+                min-height: 62px;
+
+                padding: 10px 13px;
+
+                background:
+                    linear-gradient(
+                        135deg,
+                        #0878d1 0%,
+                        #075ca5 100%
+                    );
+
+                color: #ffffff !important;
+
+                border-radius: 18px;
+
+                text-decoration: none !important;
+
+                box-shadow:
+                    0 15px 40px rgba(0, 76, 130, .35);
+
+                border: 2px solid rgba(255,255,255,.8);
+
+                font-family:
+                    Arial,
+                    Helvetica,
+                    sans-serif;
+
+                transition:
+                    transform .2s ease,
+                    box-shadow .2s ease;
+
+                animation:
+                    vshCartAppear .35s ease;
+            }
+
+
+            #vsh-floating-cart:hover {
+                transform:
+                    translateY(-4px)
+                    scale(1.02);
+
+                box-shadow:
+                    0 20px 50px rgba(0, 76, 130, .45);
+            }
+
+
+            .vsh-cart-icon {
+                width: 39px;
+                height: 39px;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                background: rgba(255,255,255,.16);
+
+                border-radius: 12px;
+
+                font-size: 21px;
+            }
+
+
+            .vsh-cart-text {
+                display: flex;
+                flex-direction: column;
+
+                line-height: 1.1;
+
+                flex: 1;
+            }
+
+
+            .vsh-cart-text strong {
+                color: #ffffff;
+
+                font-size: 15px;
+                font-weight: 900;
+            }
+
+
+            .vsh-cart-text small {
+                margin-top: 4px;
+
+                color: rgba(255,255,255,.78);
+
+                font-size: 10px;
+                font-weight: 600;
+            }
+
+
+            .vsh-floating-cart-count {
+                min-width: 29px;
+                height: 29px;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                padding: 0 7px;
+
+                background: #ffffff;
+                color: #0878d1;
+
+                border-radius: 50px;
+
+                font-size: 12px;
+                font-weight: 900;
+
+                box-shadow:
+                    0 4px 12px rgba(0,0,0,.12);
+            }
+
+
+            @keyframes vshCartAppear {
+
+                from {
+                    opacity: 0;
+                    transform:
+                        translateY(20px)
+                        scale(.94);
+                }
+
+                to {
+                    opacity: 1;
+                    transform:
+                        translateY(0)
+                        scale(1);
+                }
+
+            }
+
+
+            @media (max-width: 600px) {
+
+                #vsh-floating-cart {
+                    right: 14px;
+                    bottom: 14px;
+
+                    min-width: 145px;
+                    min-height: 55px;
+
+                    padding: 8px 10px;
+
+                    border-radius: 15px;
+                }
+
+
+                .vsh-cart-icon {
+                    width: 34px;
+                    height: 34px;
+
+                    font-size: 18px;
+
+                    border-radius: 10px;
+                }
+
+
+                .vsh-cart-text strong {
+                    font-size: 13px;
+                }
+
+
+                .vsh-cart-text small {
+                    font-size: 9px;
+                }
+
+
+                .vsh-floating-cart-count {
+                    min-width: 26px;
+                    height: 26px;
+
+                    font-size: 11px;
+                }
+
+            }
+
+        `;
+
+        document.head.appendChild(style);
+    }
+
+
+    function init() {
+
+        addFloatingCartCSS();
+        createFloatingCart();
+        updateFloatingCart();
+
+        // Update when another tab/window changes the cart
+        window.addEventListener(
+            "storage",
+            updateFloatingCart
+        );
+
+        // Keep it synced with add/remove/quantity changes
+        setInterval(
+            updateFloatingCart,
+            500
+        );
+    }
+
+
+    if (document.readyState === "loading") {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            init
+        );
+
+    } else {
+
+        init();
+
+    }
+
+})();
