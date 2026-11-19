@@ -1,0 +1,15 @@
+{
+  "name": "vsh-tank-cleaning",
+  "version": "1.0.0",
+  "description": "VSH Tank Cleaning booking and payment server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "razorpay": "^2.9.6",
+    "resend": "^6.0.0"
+  }
+}
