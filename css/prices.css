@@ -1,0 +1,1430 @@
+/* =========================================================
+   VSH TANK CLEANING - PRICES PAGE
+   Completely separate CSS
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+  font-family: "DM Sans", Arial, sans-serif;
+  background: #ffffff;
+  color: #071a33;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+button {
+  font-family: inherit;
+}
+
+
+img {
+  max-width: 100%;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.prices-navbar {
+  width: 100%;
+  min-height: 94px;
+  padding: 0 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+
+  background: #ffffff;
+  border-bottom: 1px solid #dce7f1;
+
+  position: relative;
+  z-index: 10;
+}
+
+
+.prices-logo a {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+
+.logo-v {
+  width: 44px;
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 22px;
+
+  background: #087cf0;
+  color: #ffffff;
+
+  font-family: Manrope, sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.logo-text strong {
+  font-family: Manrope, sans-serif;
+  font-size: 21px;
+  line-height: 1.1;
+  color: #071a33;
+}
+
+
+.logo-text small {
+  margin-top: 5px;
+
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  font-weight: 800;
+
+  color: #6c819b;
+}
+
+
+.prices-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+
+.prices-nav a {
+  color: #304966;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  transition: 0.2s ease;
+}
+
+
+.prices-nav a:hover {
+  color: #087cf0;
+}
+
+
+.prices-nav a.active {
+  color: #087cf0;
+}
+
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.call-btn,
+.cart-btn,
+.book-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 50px;
+  padding: 0 18px;
+
+  border-radius: 28px;
+
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+
+.call-btn {
+  background: #071a33;
+  color: #ffffff;
+}
+
+
+.cart-btn {
+  background: #edf7ff;
+  color: #087cf0;
+}
+
+
+.book-btn {
+  background: #087cf0;
+  color: #ffffff;
+  padding-left: 23px;
+  padding-right: 23px;
+}
+
+
+#cart-count {
+  margin-left: 5px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.price-hero {
+  min-height: 490px;
+
+  padding: 85px 7% 80px;
+
+  text-align: center;
+
+  background:
+    radial-gradient(circle at 15% 30%, rgba(8,124,240,0.08), transparent 30%),
+    radial-gradient(circle at 85% 40%, rgba(8,124,240,0.08), transparent 32%),
+    linear-gradient(180deg, #f5fbff 0%, #ffffff 100%);
+}
+
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 12px 20px;
+
+  border: 1px solid #b9ddfb;
+  border-radius: 40px;
+
+  background: #ffffff;
+
+  color: #087cf0;
+
+  font-weight: 800;
+  font-size: 15px;
+
+  box-shadow: 0 8px 30px rgba(8,124,240,0.07);
+}
+
+
+.price-hero h1 {
+  max-width: 900px;
+  margin: 25px auto 15px;
+
+  font-family: Manrope, sans-serif;
+
+  font-size: clamp(45px, 6vw, 78px);
+  line-height: 0.98;
+
+  font-weight: 800;
+  letter-spacing: -3px;
+
+  color: #071a33;
+}
+
+
+.price-hero h1 span {
+  display: block;
+  color: #087cf0;
+}
+
+
+.price-hero p {
+  max-width: 690px;
+  margin: 25px auto 0;
+
+  color: #60758f;
+
+  font-size: 19px;
+}
+
+
+.hero-buttons {
+  margin-top: 32px;
+
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+
+.primary-btn,
+.secondary-btn {
+  padding: 15px 25px;
+
+  border-radius: 30px;
+
+  font-weight: 800;
+
+  transition: 0.2s ease;
+}
+
+
+.primary-btn {
+  background: #087cf0;
+  color: white;
+
+  box-shadow: 0 10px 25px rgba(8,124,240,0.22);
+}
+
+
+.secondary-btn {
+  background: #071a33;
+  color: white;
+}
+
+
+.primary-btn:hover,
+.secondary-btn:hover {
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   TRUST STRIP
+========================================================= */
+
+.trust-strip {
+  width: 88%;
+  max-width: 1250px;
+
+  margin: -35px auto 80px;
+
+  padding: 25px 30px;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+
+  background: #ffffff;
+
+  border: 1px solid #dce8f2;
+  border-radius: 22px;
+
+  box-shadow: 0 15px 45px rgba(7,26,51,0.08);
+
+  position: relative;
+  z-index: 2;
+}
+
+
+.trust-strip div {
+  padding: 10px 20px;
+
+  border-right: 1px solid #e5edf5;
+}
+
+
+.trust-strip div:last-child {
+  border-right: none;
+}
+
+
+.trust-strip strong {
+  display: block;
+
+  color: #087cf0;
+
+  font-size: 15px;
+}
+
+
+.trust-strip span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #73869d;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   GENERAL SECTION
+========================================================= */
+
+.prices-section,
+.included-section,
+.faq-section {
+  width: 88%;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+
+.section-heading {
+  margin-bottom: 42px;
+}
+
+
+.section-heading > span {
+  color: #087cf0;
+
+  font-size: 13px;
+  font-weight: 900;
+
+  letter-spacing: 2px;
+}
+
+
+.section-heading h2 {
+  margin-top: 8px;
+
+  font-family: Manrope, sans-serif;
+
+  font-size: clamp(34px, 4vw, 52px);
+
+  line-height: 1.05;
+
+  letter-spacing: -1.5px;
+
+  color: #071a33;
+}
+
+
+.section-heading p {
+  max-width: 700px;
+
+  margin-top: 15px;
+
+  color: #667b93;
+
+  font-size: 17px;
+}
+
+
+/* =========================================================
+   PRICE CATEGORY
+========================================================= */
+
+.price-category {
+  margin-bottom: 100px;
+}
+
+
+.category-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  margin-bottom: 30px;
+
+  padding-bottom: 20px;
+
+  border-bottom: 1px solid #dfe9f2;
+}
+
+
+.category-tag {
+  color: #087cf0;
+
+  font-size: 12px;
+  font-weight: 900;
+
+  letter-spacing: 2px;
+}
+
+
+.category-heading h3 {
+  margin-top: 5px;
+
+  font-family: Manrope, sans-serif;
+
+  font-size: 32px;
+}
+
+
+.category-heading p {
+  margin-top: 4px;
+
+  color: #70839a;
+}
+
+
+.starting-price {
+  text-align: right;
+
+  color: #788ba1;
+
+  font-size: 13px;
+}
+
+
+.starting-price strong {
+  display: block;
+
+  color: #087cf0;
+
+  font-family: Manrope, sans-serif;
+
+  font-size: 28px;
+}
+
+
+/* =========================================================
+   TANK GRID
+========================================================= */
+
+.tank-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 20px;
+}
+
+
+.tank-card {
+  min-height: 475px;
+
+  padding: 30px 25px;
+
+  background: #ffffff;
+
+  border: 1px solid #dce7f1;
+
+  border-radius: 25px;
+
+  box-shadow: 0 12px 35px rgba(7,26,51,0.06);
+
+  position: relative;
+
+  transition: 0.25s ease;
+}
+
+
+.tank-card:hover {
+  transform: translateY(-7px);
+
+  border-color: #a9d5fb;
+
+  box-shadow: 0 20px 50px rgba(8,124,240,0.13);
+}
+
+
+.tank-card.featured {
+  border: 2px solid #087cf0;
+
+  box-shadow: 0 18px 50px rgba(8,124,240,0.14);
+}
+
+
+.popular {
+  position: absolute;
+
+  top: -13px;
+  right: 20px;
+
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  background: #087cf0;
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 1px;
+}
+
+
+.tank-icon {
+  width: 55px;
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  background: #eaf6ff;
+
+  font-size: 25px;
+}
+
+
+.tank-card h4 {
+  margin-top: 22px;
+
+  font-family: Manrope, sans-serif;
+
+  font-size: 25px;
+}
+
+
+.tank-price {
+  margin-top: 5px;
+
+  color: #087cf0;
+
+  font-family: Manrope, sans-serif;
+
+  font-size: 35px;
+  font-weight: 800;
+}
+
+
+.tank-card ul {
+  margin-top: 20px;
+
+  list-style: none;
+}
+
+
+.tank-card li {
+  padding: 7px 0;
+
+  color: #60758d;
+
+  font-size: 14px;
+}
+
+
+.tank-card li::before {
+  content: "✓";
+
+  margin-right: 8px;
+
+  color: #087cf0;
+
+  font-weight: 900;
+}
+
+
+.select-btn {
+  width: 100%;
+
+  margin-top: 20px;
+
+  padding: 13px 15px;
+
+  border: none;
+
+  border-radius: 25px;
+
+  background: #087cf0;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+.select-btn:hover {
+  background: #075fb8;
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   DISCOUNTS
+========================================================= */
+
+.discount-section {
+  width: 100%;
+
+  padding: 70px 7%;
+
+  background: #071a33;
+
+  color: white;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  align-items: center;
+
+  gap: 60px;
+}
+
+
+.discount-label {
+  color: #55adff;
+
+  font-size: 12px;
+  font-weight: 900;
+
+  letter-spacing: 2px;
+}
+
+
+.discount-content h2 {
+  margin-top: 10px;
+
+  font-family: Manrope, sans-serif;
+
+  font-size: 43px;
+
+  line-height: 1.1;
+}
+
+
+.discount-content p {
+  max-width: 600px;
+
+  margin-top: 15px;
+
+  color: #b8c8d9;
+
+  font-size: 17px;
+}
+
+
+.discount-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 12px;
+}
+
+
+.discount-card {
+  min-height: 150px;
+
+  padding: 25px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  border: 1px solid rgba(255,255,255,0.12);
+
+  border-radius: 20px;
+
+  background: rgba(255,255,255,0.06);
+
+  text-align: center;
+}
+
+
+.discount-card strong {
+  font-size: 18px;
+}
+
+
+.discount-card span {
+  margin-top: 5px;
+
+  color: #4fa8ff;
+
+  font-size: 28px;
+  font-weight: 900;
+}
+
+
+/* =========================================================
+   PAYMENT OFFER
+========================================================= */
+
+.payment-offer {
+  width: 88%;
+  max-width: 1250px;
+
+  margin: 80px auto;
+
+  padding: 30px 35px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 25px;
+
+  background: #edf8ff;
+
+  border: 1px solid #c8e5fa;
+
+  border-radius: 24px;
+}
+
+
+.payment-icon {
+  min-width: 65px;
+  height: 65px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #087cf0;
+  color: white;
+
+  font-size: 28px;
+  font-weight: 900;
+}
+
+
+.payment-offer span {
+  color: #087cf0;
+
+  font-size: 12px;
+  font-weight: 900;
+
+  letter-spacing: 1.5px;
+}
+
+
+.payment-offer h2 {
+  margin-top: 3px;
+
+  font-family: Manrope, sans-serif;
+
+  font-size: 28px;
+}
+
+
+.payment-offer p {
+  color: #60758d;
+}
+
+
+/* =========================================================
+   INCLUDED
+========================================================= */
+
+.included-section {
+  margin-bottom: 100px;
+}
+
+
+.included-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 20px;
+}
+
+
+.included-card {
+  min-height: 200px;
+
+  padding: 28px;
+
+  border: 1px solid #dce7f1;
+
+  border-radius: 22px;
+
+  background: white;
+
+  box-shadow: 0 10px 30px rgba(7,26,51,0.05);
+}
+
+
+.included-card > div {
+  color: #087cf0;
+
+  font-size: 13px;
+  font-weight: 900;
+}
+
+
+.included-card h3 {
+  margin-top: 10px;
+
+  font-family: Manrope, sans-serif;
+
+  font-size: 21px;
+}
+
+
+.included-card p {
+  margin-top: 8px;
+
+  color: #6b7f96;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   CUSTOM QUOTE
+========================================================= */
+
+.custom-quote {
+  width: 88%;
+  max-width: 1250px;
+
+  margin: 0 auto 90px;
+
+  padding: 50px;
+
+  border-radius: 28px;
+
+  background:
+    linear-gradient(120deg, #087cf0 0%, #075cb9 100%);
+
+  color: white;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 30px;
+}
+
+
+.custom-quote span {
+  font-size: 12px;
+  font-weight: 900;
+
+  letter-spacing: 2px;
+
+  color: #d8eeff;
+}
+
+
+.custom-quote h2 {
+  max-width: 700px;
+
+  margin-top: 7px;
+
+  font-family: Manrope, sans-serif;
+
+  font-size: 36px;
+
+  line-height: 1.1;
+}
+
+
+.custom-quote p {
+  max-width: 650px;
+
+  margin-top: 12px;
+
+  color: #dbeeff;
+}
+
+
+.quote-actions {
+  display: flex;
+  gap: 10px;
+
+  flex-shrink: 0;
+}
+
+
+.quote-call,
+.quote-whatsapp {
+  padding: 14px 22px;
+
+  border-radius: 30px;
+
+  font-weight: 800;
+}
+
+
+.quote-call {
+  background: #071a33;
+  color: white;
+}
+
+
+.quote-whatsapp {
+  background: #20c463;
+  color: white;
+}
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+.faq-section {
+  margin-bottom: 100px;
+}
+
+
+.faq-list {
+  max-width: 900px;
+}
+
+
+.faq-list details {
+  padding: 22px 25px;
+
+  border-bottom: 1px solid #dce7f1;
+}
+
+
+.faq-list details:first-child {
+  border-top: 1px solid #dce7f1;
+}
+
+
+.faq-list summary {
+  cursor: pointer;
+
+  font-size: 17px;
+  font-weight: 800;
+}
+
+
+.faq-list p {
+  max-width: 800px;
+
+  padding-top: 12px;
+
+  color: #687d95;
+}
+
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+.final-cta {
+  padding: 90px 20px;
+
+  text-align: center;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f3faff 0%,
+      #ffffff 100%
+    );
+}
+
+
+.final-cta > span {
+  color: #087cf0;
+
+  font-size: 12px;
+  font-weight: 900;
+
+  letter-spacing: 2px;
+}
+
+
+.final-cta h2 {
+  max-width: 800px;
+
+  margin: 10px auto;
+
+  font-family: Manrope, sans-serif;
+
+  font-size: clamp(35px, 5vw, 55px);
+
+  line-height: 1.05;
+}
+
+
+.final-cta p {
+  color: #687d95;
+
+  font-size: 17px;
+}
+
+
+.final-cta > div {
+  margin-top: 28px;
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+}
+
+
+.final-book,
+.final-call {
+  padding: 15px 25px;
+
+  border-radius: 30px;
+
+  font-weight: 800;
+}
+
+
+.final-book {
+  background: #087cf0;
+  color: white;
+}
+
+
+.final-call {
+  background: #071a33;
+  color: white;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.prices-footer {
+  padding: 50px 7%;
+
+  background: #071a33;
+
+  color: white;
+
+  display: grid;
+
+  grid-template-columns: 2fr 1fr 1fr;
+
+  gap: 40px;
+}
+
+
+.footer-brand h2 {
+  font-family: Manrope, sans-serif;
+}
+
+
+.footer-brand p {
+  max-width: 400px;
+
+  margin-top: 8px;
+
+  color: #9eb0c3;
+}
+
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+
+  gap: 9px;
+}
+
+
+.footer-links a {
+  color: #c8d5e2;
+
+  transition: 0.2s;
+}
+
+
+.footer-links a:hover {
+  color: #4fa8ff;
+}
+
+
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+
+.footer-contact strong {
+  color: #ffffff;
+}
+
+
+.footer-contact a {
+  color: #55adff;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .prices-navbar {
+    padding: 0 30px;
+  }
+
+  .prices-nav {
+    gap: 16px;
+  }
+
+  .prices-nav a {
+    font-size: 14px;
+  }
+
+  .header-actions {
+    display: none;
+  }
+
+  .tank-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 850px) {
+
+  .prices-navbar {
+    min-height: auto;
+    padding: 18px 22px;
+
+    flex-wrap: wrap;
+  }
+
+  .prices-nav {
+    width: 100%;
+
+    overflow-x: auto;
+
+    padding-bottom: 5px;
+
+    order: 3;
+  }
+
+  .prices-nav a {
+    white-space: nowrap;
+  }
+
+
+  .price-hero {
+    padding: 65px 25px;
+  }
+
+
+  .price-hero h1 {
+    font-size: 48px;
+    letter-spacing: -2px;
+  }
+
+
+  .trust-strip {
+    width: 90%;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    margin-top: -20px;
+  }
+
+
+  .trust-strip div:nth-child(2) {
+    border-right: none;
+  }
+
+
+  .category-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+
+  .starting-price {
+    text-align: left;
+  }
+
+
+  .discount-section {
+    grid-template-columns: 1fr;
+  }
+
+
+  .included-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+
+  .custom-quote {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+
+  .prices-footer {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .prices-navbar {
+    padding: 15px;
+  }
+
+
+  .logo-v {
+    width: 38px;
+    height: 50px;
+
+    font-size: 23px;
+  }
+
+
+  .logo-text strong {
+    font-size: 17px;
+  }
+
+
+  .logo-text small {
+    font-size: 8px;
+  }
+
+
+  .prices-nav {
+    gap: 20px;
+  }
+
+
+  .price-hero {
+    min-height: auto;
+
+    padding: 55px 18px;
+  }
+
+
+  .price-hero h1 {
+    font-size: 40px;
+
+    letter-spacing: -1.5px;
+  }
+
+
+  .price-hero p {
+    font-size: 16px;
+  }
+
+
+  .trust-strip {
+    width: 92%;
+
+    grid-template-columns: 1fr;
+
+    padding: 15px;
+  }
+
+
+  .trust-strip div {
+    border-right: none;
+    border-bottom: 1px solid #e5edf5;
+  }
+
+
+  .trust-strip div:last-child {
+    border-bottom: none;
+  }
+
+
+  .prices-section,
+  .included-section,
+  .faq-section {
+    width: 92%;
+  }
+
+
+  .section-heading h2 {
+    font-size: 36px;
+  }
+
+
+  .tank-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .tank-card {
+    min-height: auto;
+  }
+
+
+  .discount-section {
+    padding: 55px 25px;
+  }
+
+
+  .discount-content h2 {
+    font-size: 35px;
+  }
+
+
+  .discount-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .payment-offer {
+    width: 92%;
+
+    padding: 25px;
+
+    align-items: flex-start;
+  }
+
+
+  .included-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .custom-quote {
+    width: 92%;
+
+    padding: 32px 25px;
+  }
+
+
+  .custom-quote h2 {
+    font-size: 29px;
+  }
+
+
+  .quote-actions {
+    width: 100%;
+
+    flex-direction: column;
+  }
+
+
+  .quote-call,
+  .quote-whatsapp {
+    text-align: center;
+  }
+
+
+  .prices-footer {
+    grid-template-columns: 1fr;
+
+    padding: 40px 25px;
+  }
+
+}
