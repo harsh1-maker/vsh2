@@ -1,53 +1,40 @@
 /* =========================================================
-   VSH TANK CLEANING - MAIN JAVASCRIPT
+   VSH TANK CLEANING
+   CART + BOOKING + RAZORPAY
 ========================================================= */
 
 const CART_KEY = "vsh_tank_cart";
-
 
 /* =========================================================
    CART STORAGE
 ========================================================= */
 
 function getCart() {
-
     try {
-
-        return JSON.parse(
-            localStorage.getItem(CART_KEY)
-        ) || [];
-
+        const cart = JSON.parse(localStorage.getItem(CART_KEY));
+        return Array.isArray(cart) ? cart : [];
     } catch (error) {
-
         return [];
-
     }
-
 }
-
 
 function saveCart(cart) {
-
-    localStorage.setItem(
-        CART_KEY,
-        JSON.stringify(cart)
-    );
-
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    updateCartCount();
 }
-
 
 /* =========================================================
    ADD TO CART
    Supports BOTH:
 
+   addToCart("Overhead Tank Cleaning - 1000 Litres", 499)
+
+   AND
+
    addToCart({
        name: "...",
        price: 499
    })
-
-   AND
-
-   addToCart("Tank Cleaning", 499)
 ========================================================= */
 
 function addToCart(item, price) {
@@ -55,103 +42,57 @@ function addToCart(item, price) {
     let name;
     let itemPrice;
 
-
-    /* Old / current prices.html format */
-
+    /* Old/current prices.html format */
     if (typeof item === "string") {
-
         name = item;
-
         itemPrice = Number(price);
-
     }
-
 
     /* Object format */
-
-    else if (
-        typeof item === "object" &&
-        item !== null
-    ) {
-
+    else if (item && typeof item === "object") {
         name = item.name;
-
         itemPrice = Number(item.price);
-
     }
 
-
-    if (
-        !name ||
-        !itemPrice ||
-        itemPrice <= 0
-    ) {
-
-        console.error(
-            "Invalid cart item:",
-            item,
-            price
-        );
-
+    if (!name || !itemPrice || itemPrice <= 0) {
+        console.error("Invalid cart item:", item, price);
         return;
-
     }
 
+    const cart = getCart();
 
-    let cart = getCart();
-
-
-    const existingItem =
-        cart.find(
-            product =>
-                product.name === name
-        );
-
+    const existingItem = cart.find(
+        product => product.name === name
+    );
 
     if (existingItem) {
 
-        existingItem.quantity += 1;
+        existingItem.quantity =
+            Number(existingItem.quantity || 0) + 1;
 
-    }
-
-    else {
+    } else {
 
         cart.push({
-
             name: name,
-
             price: itemPrice,
-
             quantity: 1
-
         });
 
     }
 
-
     saveCart(cart);
 
-
     updateCartCount();
-
 
     showCartMessage(
         `${name} added to cart`
     );
 
-
-    if (
-        document.getElementById(
-            "cart-root"
-        )
-    ) {
-
+    /* Refresh cart if currently on cart page */
+    if (document.getElementById("cart-root")) {
         renderCart();
-
     }
-
 }
-
 
 /* =========================================================
    REMOVE ITEM
@@ -159,74 +100,45 @@ function addToCart(item, price) {
 
 function removeFromCart(index) {
 
-    let cart = getCart();
-
+    const cart = getCart();
 
     if (
         index < 0 ||
         index >= cart.length
     ) {
-
         return;
-
     }
-
 
     cart.splice(index, 1);
 
-
     saveCart(cart);
 
-
-    updateCartCount();
-
-
     renderCart();
-
 }
-
 
 /* =========================================================
    CHANGE QUANTITY
 ========================================================= */
 
-function changeQuantity(
-    index,
-    change
-) {
+function changeQuantity(index, change) {
 
-    let cart = getCart();
-
+    const cart = getCart();
 
     if (!cart[index]) {
-
         return;
-
     }
 
+    cart[index].quantity =
+        Number(cart[index].quantity || 0) + change;
 
-    cart[index].quantity += change;
-
-
-    if (
-        cart[index].quantity <= 0
-    ) {
-
+    if (cart[index].quantity <= 0) {
         cart.splice(index, 1);
-
     }
-
 
     saveCart(cart);
 
-
-    updateCartCount();
-
-
     renderCart();
-
 }
-
 
 /* =========================================================
    CART COUNT
@@ -236,296 +148,54 @@ function updateCartCount() {
 
     const cart = getCart();
 
-
     let totalItems = 0;
 
-
     cart.forEach(item => {
-
-        totalItems += Number(
-            item.quantity
-        );
-
+        totalItems += Number(item.quantity || 0);
     });
 
-
-    const counters =
-        document.querySelectorAll(
-            "#cart-count, .cart-count"
-        );
-
-
-    counters.forEach(counter => {
-
-        counter.textContent =
-            totalItems;
-
-    });
-
-}
-
-
-/* =========================================================
-   CREATE FOOTER CART
-   Automatically adds Cart to every page
-========================================================= */
-
-function addFooterCart() {
-
-    const footer =
-        document.querySelector(
-            ".footer"
-        );
-
-
-    if (!footer) {
-
-        return;
-
-    }
-
-
-    /* Prevent duplicate */
-
-    if (
-        document.querySelector(
-            ".footer-cart"
+    document
+        .querySelectorAll(
+            "#cart-count, .cart-count, [data-cart-count]"
         )
-    ) {
-
-        return;
-
-    }
-
-
-    const cart =
-        getCart();
-
-
-    let totalItems = 0;
-
-
-    cart.forEach(item => {
-
-        totalItems += Number(
-            item.quantity
-        );
-
-    });
-
-
-    const cartColumn =
-        document.createElement(
-            "div"
-        );
-
-
-    cartColumn.className =
-        "footer-cart";
-
-
-    cartColumn.innerHTML = `
-
-        <h3>
-            Your Booking
-        </h3>
-
-        <p>
-            Ready to book your tank cleaning?
-        </p>
-
-        <a
-            href="cart.html"
-            class="footer-cart-button"
-        >
-
-            <span>
-                🛒 View Cart
-            </span>
-
-            <span
-                class="cart-count"
-            >
-                ${totalItems}
-            </span>
-
-        </a>
-
-    `;
-
-
-    const footerGrid =
-        footer.querySelector(
-            ".footer-grid"
-        );
-
-
-    if (footerGrid) {
-
-        footerGrid.appendChild(
-            cartColumn
-        );
-
-    }
-
-    else {
-
-        footer.appendChild(
-            cartColumn
-        );
-
-    }
-
-
-    updateCartCount();
-
+        .forEach(element => {
+            element.textContent = totalItems;
+        });
 }
 
-
 /* =========================================================
-   CART MESSAGE
+   DISCOUNT
 ========================================================= */
 
-function showCartMessage(
-    message
-) {
-
-    let messageBox =
-        document.getElementById(
-            "cart-message"
-        );
-
-
-    if (!messageBox) {
-
-        messageBox =
-            document.createElement(
-                "div"
-            );
-
-        messageBox.id =
-            "cart-message";
-
-
-        messageBox.style.position =
-            "fixed";
-
-        messageBox.style.bottom =
-            "30px";
-
-        messageBox.style.left =
-            "50%";
-
-        messageBox.style.transform =
-            "translateX(-50%)";
-
-        messageBox.style.background =
-            "#071b33";
-
-        messageBox.style.color =
-            "#ffffff";
-
-        messageBox.style.padding =
-            "14px 22px";
-
-        messageBox.style.borderRadius =
-            "999px";
-
-        messageBox.style.fontWeight =
-            "700";
-
-        messageBox.style.fontSize =
-            "14px";
-
-        messageBox.style.zIndex =
-            "99999";
-
-        messageBox.style.boxShadow =
-            "0 10px 30px rgba(0,0,0,.25)";
-
-
-        document.body.appendChild(
-            messageBox
-        );
-
-    }
-
-
-    messageBox.textContent =
-        message;
-
-
-    messageBox.style.display =
-        "block";
-
-
-    clearTimeout(
-        window.cartMessageTimer
-    );
-
-
-    window.cartMessageTimer =
-        setTimeout(() => {
-
-            messageBox.style.display =
-                "none";
-
-        }, 2200);
-
-}
-
-
-/* =========================================================
-   DISCOUNT RULES
-========================================================= */
-
-function getDiscountRate(
-    totalItems
-) {
+function getDiscountRate(totalItems) {
 
     if (totalItems >= 5) {
-
         return 0.15;
-
     }
-
 
     if (totalItems >= 3) {
-
         return 0.12;
-
     }
-
 
     if (totalItems >= 2) {
-
         return 0.10;
-
     }
 
-
     return 0;
-
 }
-
 
 /* =========================================================
    CALCULATE TOTALS
 ========================================================= */
 
 function calculateTotals(
-    paymentMethod =
-        "after-service"
+    paymentMethod = "after-service"
 ) {
 
-    const cart =
-        getCart();
-
+    const cart = getCart();
 
     let subtotal = 0;
-
     let totalItems = 0;
-
 
     cart.forEach(item => {
 
@@ -533,63 +203,161 @@ function calculateTotals(
             Number(item.price) *
             Number(item.quantity);
 
-
         totalItems +=
             Number(item.quantity);
 
     });
 
-
     const discountRate =
-        getDiscountRate(
-            totalItems
-        );
-
+        getDiscountRate(totalItems);
 
     const quantityDiscount =
-        subtotal *
-        discountRate;
-
+        subtotal * discountRate;
 
     let onlineDiscount = 0;
 
-
     if (
-        paymentMethod ===
-        "online"
+        paymentMethod === "online" &&
+        subtotal - quantityDiscount > 0
     ) {
 
         onlineDiscount =
-            (
-                subtotal -
-                quantityDiscount
-            ) * 0.05;
+            (subtotal - quantityDiscount) * 0.05;
 
     }
-
 
     const total =
         subtotal -
         quantityDiscount -
         onlineDiscount;
 
-
     return {
 
         subtotal,
-
-        totalItems,
 
         quantityDiscount,
 
         onlineDiscount,
 
-        total
+        total,
+
+        totalItems,
+
+        discountRate
 
     };
-
 }
 
+/* =========================================================
+   MONEY FORMAT
+========================================================= */
+
+function formatMoney(amount) {
+
+    return "₹" +
+        Number(amount).toLocaleString(
+            "en-IN",
+            {
+                maximumFractionDigits: 2
+            }
+        );
+}
+
+/* =========================================================
+   NOTIFICATION
+========================================================= */
+
+function showCartMessage(message) {
+
+    let notification =
+        document.getElementById(
+            "cart-notification"
+        );
+
+    if (!notification) {
+
+        notification =
+            document.createElement("div");
+
+        notification.id =
+            "cart-notification";
+
+        notification.style.position =
+            "fixed";
+
+        notification.style.top =
+            "90px";
+
+        notification.style.right =
+            "20px";
+
+        notification.style.background =
+            "#16a34a";
+
+        notification.style.color =
+            "#fff";
+
+        notification.style.padding =
+            "14px 20px";
+
+        notification.style.borderRadius =
+            "12px";
+
+        notification.style.fontWeight =
+            "700";
+
+        notification.style.zIndex =
+            "99999";
+
+        notification.style.boxShadow =
+            "0 10px 30px rgba(0,0,0,.2)";
+
+        notification.style.transition =
+            "opacity .3s ease";
+
+        document.body.appendChild(
+            notification
+        );
+    }
+
+    notification.textContent =
+        "✓ " + message;
+
+    notification.style.opacity = "1";
+
+    clearTimeout(
+        window.cartNotificationTimer
+    );
+
+    window.cartNotificationTimer =
+        setTimeout(() => {
+
+            notification.style.opacity =
+                "0";
+
+        }, 2500);
+}
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(text) {
+
+    if (
+        text === undefined ||
+        text === null
+    ) {
+        return "";
+    }
+
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 
 /* =========================================================
    RENDER CART
@@ -597,339 +365,161 @@ function calculateTotals(
 
 function renderCart() {
 
-    const root =
+    const cartRoot =
         document.getElementById(
             "cart-root"
         );
 
-
-    if (!root) {
-
+    if (!cartRoot) {
         return;
-
     }
 
+    const cartItemsContainer =
+        document.getElementById(
+            "cart-items"
+        );
+
+    const emptyCart =
+        document.getElementById(
+            "empty-cart"
+        );
+
+    const checkoutSection =
+        document.getElementById(
+            "checkout-section"
+        );
+
+    const continueButton =
+        document.getElementById(
+            "continue-booking"
+        );
 
     const cart =
         getCart();
 
+    /* =========================
+       EMPTY CART
+    ========================= */
 
-    if (!cart.length) {
+    if (cart.length === 0) {
 
-        root.innerHTML = `
+        if (cartItemsContainer) {
+            cartItemsContainer.innerHTML = "";
+        }
 
-            <div
-                class="card"
-                style="
-                    text-align:center;
-                    padding:60px 25px;
-                "
-            >
+        if (emptyCart) {
+            emptyCart.style.display =
+                "block";
+        }
 
-                <div
-                    style="
-                        font-size:55px;
-                        margin-bottom:15px;
-                    "
-                >
-                    🛒
-                </div>
+        if (checkoutSection) {
+            checkoutSection.style.display =
+                "none";
+        }
 
-                <h2>
-                    Your cart is empty
-                </h2>
-
-                <p>
-                    Choose a tank size from
-                    our pricing page and add
-                    it to your booking.
-                </p>
-
-                <a
-                    class="btn btn-blue"
-                    href="prices.html"
-                >
-                    View Prices →
-                </a>
-
-            </div>
-
-        `;
-
+        if (continueButton) {
+            continueButton.style.display =
+                "none";
+        }
 
         updateCartCount();
 
-
         return;
-
     }
 
+    /* =========================
+       CART HAS ITEMS
+    ========================= */
 
-    let subtotal = 0;
+    if (emptyCart) {
+        emptyCart.style.display =
+            "none";
+    }
 
-    let totalItems = 0;
+    if (continueButton) {
+        continueButton.style.display =
+            "inline-flex";
+    }
 
+    let html = "";
 
-    cart.forEach(item => {
+    cart.forEach((item, index) => {
 
-        subtotal +=
+        const itemTotal =
             Number(item.price) *
             Number(item.quantity);
 
+        html += `
 
-        totalItems +=
-            Number(item.quantity);
+        <div class="cart-item">
 
-    });
+            <div class="cart-item-info">
 
-
-    const discountRate =
-        getDiscountRate(
-            totalItems
-        );
-
-
-    const quantityDiscount =
-        subtotal *
-        discountRate;
-
-
-    const afterDiscount =
-        subtotal -
-        quantityDiscount;
-
-
-    root.innerHTML = `
-
-        <div
-            class="cart-layout"
-        >
-
-
-            <!-- ITEMS -->
-
-            <div
-                class="card"
-            >
-
-                <h2>
-                    Your Booking
-                </h2>
-
+                <h3>
+                    ${escapeHTML(item.name)}
+                </h3>
 
                 <p>
-                    ${totalItems}
-                    item${totalItems === 1 ? "" : "s"}
-                    selected
+                    ${formatMoney(item.price)}
+                    each
                 </p>
 
-
-                <div
-                    class="cart-list"
-                >
-
-                    ${cart.map(
-                        (item, index) => `
-
-                        <div
-                            class="cart-item"
-                        >
-
-                            <div
-                                class="cart-item-info"
-                            >
-
-                                <h3>
-                                    ${item.name}
-                                </h3>
-
-                                <p>
-                                    ₹${Number(
-                                        item.price
-                                    ).toLocaleString(
-                                        "en-IN"
-                                    )}
-                                    per tank
-                                </p>
-
-                            </div>
+            </div>
 
 
-                            <div
-                                class="cart-controls"
-                            >
+            <div class="quantity-control">
 
-                                <button
-                                    type="button"
-                                    onclick="changeQuantity(${index}, -1)"
-                                >
-                                    −
-                                </button>
+                <button
+                    type="button"
+                    onclick="changeQuantity(${index}, -1)">
+                    −
+                </button>
 
+                <span>
+                    ${item.quantity}
+                </span>
 
-                                <strong>
-                                    ${item.quantity}
-                                </strong>
-
-
-                                <button
-                                    type="button"
-                                    onclick="changeQuantity(${index}, 1)"
-                                >
-                                    +
-                                </button>
-
-                            </div>
-
-
-                            <div
-                                class="cart-item-total"
-                            >
-
-                                <strong>
-                                    ₹${(
-                                        Number(
-                                            item.price
-                                        ) *
-                                        Number(
-                                            item.quantity
-                                        )
-                                    ).toLocaleString(
-                                        "en-IN"
-                                    )}
-                                </strong>
-
-
-                                <button
-                                    type="button"
-                                    onclick="removeFromCart(${index})"
-                                >
-                                    Remove
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    `).join("")}
-
-                </div>
+                <button
+                    type="button"
+                    onclick="changeQuantity(${index}, 1)">
+                    +
+                </button>
 
             </div>
 
 
+            <div class="cart-item-total">
 
-            <!-- SUMMARY -->
-
-            <div
-                class="card cart-summary"
-            >
-
-                <h2>
-                    Booking Summary
-                </h2>
-
-
-                <div
-                    class="summary-row"
-                >
-
-                    <span>
-                        Subtotal
-                    </span>
-
-                    <strong>
-                        ₹${subtotal.toLocaleString(
-                            "en-IN"
-                        )}
-                    </strong>
-
-                </div>
-
-
-                <div
-                    class="summary-row"
-                >
-
-                    <span>
-                        Multi-tank discount
-                    </span>
-
-                    <strong
-                        style="
-                            color:#078d54;
-                        "
-                    >
-                        −₹${quantityDiscount.toLocaleString(
-                            "en-IN",
-                            {
-                                maximumFractionDigits:
-                                    0
-                            }
-                        )}
-                    </strong>
-
-                </div>
-
-
-                <hr>
-
-
-                <div
-                    class="summary-row total-row"
-                >
-
-                    <span>
-                        Total
-                    </span>
-
-                    <strong>
-                        ₹${afterDiscount.toLocaleString(
-                            "en-IN",
-                            {
-                                maximumFractionDigits:
-                                    0
-                            }
-                        )}
-                    </strong>
-
-                </div>
-
-
-                <a
-                    href="cart.html"
-                    class="btn btn-blue"
-                    style="
-                        width:100%;
-                        margin-top:20px;
-                    "
-                >
-                    Continue to Booking →
-                </a>
-
-
-                <a
-                    href="prices.html"
-                    class="btn btn-light"
-                    style="
-                        width:100%;
-                        margin-top:10px;
-                    "
-                >
-                    Add Another Tank
-                </a>
+                ${formatMoney(itemTotal)}
 
             </div>
+
+
+            <button
+                type="button"
+                class="remove-btn"
+                onclick="removeFromCart(${index})">
+
+                Remove
+
+            </button>
 
         </div>
 
-    `;
+        `;
+    });
 
+    if (cartItemsContainer) {
+
+        cartItemsContainer.innerHTML =
+            html;
+
+    }
+
+    updateSummary();
 
     updateCartCount();
-
 }
-
 
 /* =========================================================
    UPDATE SUMMARY
@@ -937,117 +527,799 @@ function renderCart() {
 
 function updateSummary() {
 
-    const paymentElement =
+    const paymentInput =
         document.querySelector(
             'input[name="payment"]:checked'
         );
 
-
     const paymentMethod =
-        paymentElement
-            ? paymentElement.value
+        paymentInput
+            ? paymentInput.value
             : "after-service";
-
 
     const totals =
         calculateTotals(
             paymentMethod
         );
 
-
     const subtotalElement =
         document.getElementById(
             "summary-subtotal"
         );
-
 
     const discountElement =
         document.getElementById(
             "summary-discount"
         );
 
+    const onlineDiscountRow =
+        document.getElementById(
+            "online-discount-row"
+        );
 
     const onlineDiscountElement =
         document.getElementById(
             "summary-online-discount"
         );
 
-
     const totalElement =
         document.getElementById(
             "summary-total"
         );
 
-
     if (subtotalElement) {
 
         subtotalElement.textContent =
-            `₹${totals.subtotal.toLocaleString(
-                "en-IN"
-            )}`;
+            formatMoney(
+                totals.subtotal
+            );
 
     }
-
 
     if (discountElement) {
 
-        discountElement.textContent =
-            `−₹${totals.quantityDiscount.toLocaleString(
-                "en-IN",
-                {
-                    maximumFractionDigits:
-                        0
-                }
-            )}`;
+        if (
+            totals.quantityDiscount > 0
+        ) {
 
+            discountElement.textContent =
+                "-" +
+                formatMoney(
+                    totals.quantityDiscount
+                ) +
+                ` (${Math.round(
+                    totals.discountRate * 100
+                )}% bulk discount)`;
+
+        } else {
+
+            discountElement.textContent =
+                "₹0";
+
+        }
     }
 
+    if (onlineDiscountRow) {
 
-    if (onlineDiscountElement) {
-
-        onlineDiscountElement.textContent =
-            `−₹${totals.onlineDiscount.toLocaleString(
-                "en-IN",
-                {
-                    maximumFractionDigits:
-                        0
-                }
-            )}`;
-
-    }
-
-
-    if (totalElement) {
-
-        totalElement.textContent =
-            `₹${totals.total.toLocaleString(
-                "en-IN",
-                {
-                    maximumFractionDigits:
-                        0
-                }
-            )}`;
-
-    }
-
-
-    const onlineRow =
-        document.getElementById(
-            "online-discount-row"
-        );
-
-
-    if (onlineRow) {
-
-        onlineRow.style.display =
+        onlineDiscountRow.style.display =
             paymentMethod === "online"
                 ? "flex"
                 : "none";
 
     }
 
+    if (onlineDiscountElement) {
+
+        onlineDiscountElement.textContent =
+            "-" +
+            formatMoney(
+                totals.onlineDiscount
+            );
+
+    }
+
+    if (totalElement) {
+
+        totalElement.textContent =
+            formatMoney(
+                totals.total
+            );
+
+    }
 }
 
+/* =========================================================
+   CONTINUE TO BOOKING
+   IMPORTANT:
+   DOES NOT CHANGE PAGE.
+========================================================= */
+
+function setupContinueBooking() {
+
+    const button =
+        document.getElementById(
+            "continue-booking"
+        );
+
+    const checkoutSection =
+        document.getElementById(
+            "checkout-section"
+        );
+
+    if (
+        !button ||
+        !checkoutSection
+    ) {
+        return;
+    }
+
+    button.addEventListener(
+        "click",
+        function () {
+
+            if (
+                getCart().length === 0
+            ) {
+
+                alert(
+                    "Please add a tank cleaning service first."
+                );
+
+                return;
+            }
+
+            checkoutSection.style.display =
+                "block";
+
+            checkoutSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }
+    );
+}
+
+/* =========================================================
+   PAYMENT METHOD
+========================================================= */
+
+function setupPaymentMethods() {
+
+    document
+        .querySelectorAll(
+            'input[name="payment"]'
+        )
+        .forEach(input => {
+
+            input.addEventListener(
+                "change",
+                updateSummary
+            );
+
+        });
+}
+
+/* =========================================================
+   BOOKING FORM
+========================================================= */
+
+function setupBookingForm() {
+
+    const form =
+        document.getElementById(
+            "booking-form"
+        );
+
+    if (!form) {
+        return;
+    }
+
+    form.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+            const cart =
+                getCart();
+
+            if (cart.length === 0) {
+
+                alert(
+                    "Your cart is empty."
+                );
+
+                return;
+            }
+
+            const submitButton =
+                document.getElementById(
+                    "booking-submit"
+                );
+
+            if (submitButton) {
+
+                submitButton.disabled =
+                    true;
+
+                submitButton.textContent =
+                    "Processing...";
+
+            }
+
+            const paymentInput =
+                document.querySelector(
+                    'input[name="payment"]:checked'
+                );
+
+            const paymentMethod =
+                paymentInput
+                    ? paymentInput.value
+                    : "after-service";
+
+            const totals =
+                calculateTotals(
+                    paymentMethod
+                );
+
+            const formData =
+                new FormData(form);
+
+            /* IMPORTANT:
+               These names match the booking API.
+            */
+
+            const customer = {
+
+                name:
+                    formData.get("name") || "",
+
+                phone:
+                    formData.get("phone") || "",
+
+                address:
+                    formData.get("address") || "",
+
+                serviceDate:
+                    formData.get("serviceDate") || "",
+
+                serviceTime:
+                    formData.get("serviceTime") || "",
+
+                paymentMethod:
+                    paymentMethod
+
+            };
+
+            const orderData = {
+
+                customer,
+
+                items: cart,
+
+                pricing: totals
+
+            };
+
+            /* =================================================
+               ONLINE PAYMENT
+            ================================================= */
+
+            if (
+                paymentMethod === "online"
+            ) {
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "/api/create-booking",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        orderData
+                                    )
+                            }
+                        );
+
+                    const data =
+                        await response.json();
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            data.message ||
+                            "Unable to create payment."
+                        );
+
+                    }
+
+                    if (
+                        typeof Razorpay ===
+                        "undefined"
+                    ) {
+
+                        throw new Error(
+                            "Razorpay failed to load. Please refresh the page and try again."
+                        );
+
+                    }
+
+                    const options = {
+
+                        key:
+                            data.key,
+
+                        amount:
+                            data.amount,
+
+                        currency:
+                            data.currency ||
+                            "INR",
+
+                        name:
+                            "VSH Tank Cleaning",
+
+                        description:
+                            "Water Tank Cleaning Service",
+
+                        order_id:
+                            data.orderId,
+
+                        prefill: {
+
+                            name:
+                                customer.name,
+
+                            contact:
+                                customer.phone
+
+                        },
+
+                        theme: {
+
+                            color:
+                                "#0878d1"
+
+                        },
+
+                        handler:
+                            async function (
+                                paymentResponse
+                            ) {
+
+                                try {
+
+                                    const verifyResponse =
+                                        await fetch(
+                                            "/api/verify-payment",
+                                            {
+                                                method:
+                                                    "POST",
+
+                                                headers: {
+                                                    "Content-Type":
+                                                        "application/json"
+                                                },
+
+                                                body:
+                                                    JSON.stringify(
+                                                        {
+                                                            ...orderData,
+
+                                                            payment:
+                                                                paymentResponse
+                                                        }
+                                                    )
+                                            }
+                                        );
+
+                                    const verifyData =
+                                        await verifyResponse.json();
+
+                                    if (
+                                        !verifyResponse.ok
+                                    ) {
+
+                                        throw new Error(
+                                            verifyData.message ||
+                                            "Payment verification failed."
+                                        );
+
+                                    }
+
+                                    localStorage.removeItem(
+                                        CART_KEY
+                                    );
+
+                                    updateCartCount();
+
+                                    showBookingSuccess(
+                                        "Payment successful! Your booking has been confirmed."
+                                    );
+
+                                } catch (error) {
+
+                                    console.error(
+                                        "Verification error:",
+                                        error
+                                    );
+
+                                    alert(
+                                        "Payment was received, but we could not complete the booking confirmation. Please contact VSH Tank Cleaning."
+                                    );
+
+                                    resetSubmitButton();
+
+                                }
+
+                            },
+
+                        modal: {
+
+                            ondismiss:
+                                function () {
+
+                                    resetSubmitButton();
+
+                                }
+
+                        }
+
+                    };
+
+                    const razorpay =
+                        new Razorpay(
+                            options
+                        );
+
+                    razorpay.open();
+
+                } catch (error) {
+
+                    console.error(
+                        "Payment error:",
+                        error
+                    );
+
+                    alert(
+                        error.message ||
+                        "Something went wrong while processing your payment."
+                    );
+
+                    resetSubmitButton();
+
+                }
+
+                return;
+            }
+
+            /* =================================================
+               PAY AFTER SERVICE
+            ================================================= */
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/create-booking",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    orderData
+                                )
+                        }
+                    );
+
+                const data =
+                    await response.json();
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Booking could not be completed."
+                    );
+
+                }
+
+                localStorage.removeItem(
+                    CART_KEY
+                );
+
+                updateCartCount();
+
+                showBookingSuccess(
+                    "Booking confirmed! VSH Tank Cleaning will contact you shortly."
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Booking error:",
+                    error
+                );
+
+                alert(
+                    error.message ||
+                    "Something went wrong while booking."
+                );
+
+                resetSubmitButton();
+
+            }
+
+        }
+    );
+}
+
+/* =========================================================
+   RESET BUTTON
+========================================================= */
+
+function resetSubmitButton() {
+
+    const button =
+        document.getElementById(
+            "booking-submit"
+        );
+
+    if (button) {
+
+        button.disabled = false;
+
+        button.textContent =
+            "Pay & Book Now →";
+
+    }
+}
+
+/* =========================================================
+   SUCCESS
+========================================================= */
+
+function showBookingSuccess(message) {
+
+    const success =
+        document.getElementById(
+            "bookingSuccess"
+        );
+
+    const form =
+        document.getElementById(
+            "booking-form"
+        );
+
+    const checkoutSection =
+        document.getElementById(
+            "checkout-section"
+        );
+
+    if (form) {
+        form.style.display =
+            "none";
+    }
+
+    if (success) {
+
+        success.style.display =
+            "block";
+
+        success.innerHTML = `
+
+            <div class="booking-success-box">
+
+                <div class="success-icon">
+                    ✓
+                </div>
+
+                <h2>
+                    Booking Confirmed
+                </h2>
+
+                <p>
+                    ${escapeHTML(message)}
+                </p>
+
+                <p>
+                    Thank you for choosing
+                    <strong>
+                        VSH Tank Cleaning
+                    </strong>.
+                </p>
+
+                <div class="success-actions">
+
+                    <a
+                        href="index.html"
+                        class="btn btn-blue">
+
+                        Back to Home
+
+                    </a>
+
+                    <a
+                        href="https://wa.me/919599057079"
+                        class="btn btn-green">
+
+                        WhatsApp VSH
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        `;
+
+        success.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    } else if (checkoutSection) {
+
+        checkoutSection.innerHTML = `
+
+            <div class="booking-success-box">
+
+                <h2>
+                    Booking Confirmed ✓
+                </h2>
+
+                <p>
+                    ${escapeHTML(message)}
+                </p>
+
+                <a
+                    href="index.html"
+                    class="btn btn-blue">
+
+                    Back to Home
+
+                </a>
+
+            </div>
+
+        `;
+
+    }
+}
+
+/* =========================================================
+   PRICES PAGE
+   Supports:
+   data-add="..."
+   AND
+   onclick="addToCart('...',499)"
+========================================================= */
+
+function setupPriceButtons() {
+
+    document
+        .querySelectorAll(
+            "[data-add]"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    addToCart(
+                        button.dataset.type ||
+                        button.dataset.name,
+
+                        Number(
+                            button.dataset.price
+                        )
+                    );
+
+                    button.textContent =
+                        "Added ✓";
+
+                    setTimeout(
+                        () => {
+
+                            button.textContent =
+                                "Add to Cart";
+
+                        },
+                        1000
+                    );
+
+                }
+            );
+
+        });
+
+}
+
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
+function setupMobileMenu() {
+
+    const menuButton =
+        document.querySelector(
+            ".menu-toggle"
+        );
+
+    const nav =
+        document.querySelector(
+            ".nav-links"
+        );
+
+    if (
+        !menuButton ||
+        !nav
+    ) {
+        return;
+    }
+
+    menuButton.addEventListener(
+        "click",
+        function () {
+
+            nav.classList.toggle(
+                "active"
+            );
+
+        }
+    );
+}
+
+/* =========================================================
+   ACTIVE NAV
+========================================================= */
+
+function setActiveNav() {
+
+    const currentPage =
+        window.location.pathname
+            .split("/")
+            .pop() ||
+        "index.html";
+
+    document
+        .querySelectorAll(
+            ".nav-links a"
+        )
+        .forEach(link => {
+
+            const href =
+                link.getAttribute(
+                    "href"
+                );
+
+            if (
+                href === currentPage
+            ) {
+
+                link.classList.add(
+                    "active"
+                );
+
+            }
+
+        });
+}
 
 /* =========================================================
    INITIALIZE
@@ -1057,11 +1329,21 @@ document.addEventListener(
     "DOMContentLoaded",
     function () {
 
-        addFooterCart();
-
         updateCartCount();
 
+        setupPriceButtons();
+
         renderCart();
+
+        setupContinueBooking();
+
+        setupPaymentMethods();
+
+        setupBookingForm();
+
+        setupMobileMenu();
+
+        setActiveNav();
 
         updateSummary();
 
