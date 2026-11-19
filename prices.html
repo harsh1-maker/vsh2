@@ -3,129 +3,732 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VSH Tank Cleaning - Prices</title>
+
+  <title>VSH Tank Cleaning | Prices</title>
+  <meta
+    name="description"
+    content="VSH Tank Cleaning price list. Choose your tank size, add services to your cart and book online."
+  >
+
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
 
-<header class="navbar">
-  <div class="logo">
-    <a href="index.html">VSH Tank Cleaning</a>
+<!-- TOP BAR -->
+<div class="topline">
+  <div class="container">
+    <span>✦ Professional water tank cleaning · Transparent pricing · Easy booking</span>
+    <span>Mon–Sun · 7 AM–9 PM</span>
   </div>
+</div>
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="prices.html" class="active">Prices</a>
-    <a href="about.html">About Us</a>
-    <a href="areas.html">Areas</a>
-    <a href="guides.html">Guides</a>
-    <a href="reviews.html">Reviews</a>
-    <a href="contact.html">Contact</a>
-    <a href="cart.html" class="cart-link">
-      Cart <span id="cart-count">0</span>
+<!-- HEADER -->
+<header class="header">
+  <div class="container nav">
+
+    <a class="brand" href="index.html">
+      <img src="assets/vsh-logo.jpg" alt="VSH Tank Cleaning">
+      <span>
+        <strong>VSH Tank Cleaning</strong>
+        <small>WATER TANK CLEANING</small>
+      </span>
     </a>
-  </nav>
+
+    <nav class="navlinks">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="areas.html">Service Areas</a>
+      <a href="prices.html">Prices</a>
+      <a href="process.html">Process</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="guides.html">Guides</a>
+      <a href="about.html">About Us</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="btn btn-black" href="tel:+919599057079">☎ Call</a>
+
+      <a
+        class="btn btn-green"
+        href="https://wa.me/919599057079"
+      >
+        WhatsApp
+      </a>
+
+      <a class="btn btn-blue" href="cart.html">
+        🛒 Cart <span data-cart-count>0</span>
+      </a>
+    </div>
+
+  </div>
 </header>
 
-<main class="page">
 
-  <section class="hero-section">
-    <h1>Tank Cleaning Prices</h1>
-    <p>Choose your tank cleaning service and add it to your cart.</p>
-  </section>
+<!-- MAIN -->
+<main>
 
-  <section class="pricing-grid">
+<section class="section">
+  <div class="container">
 
-    <div class="price-card">
-      <h2>Small Tank</h2>
-      <p class="tank-size">Up to 500 Litres</p>
-      <div class="price">₹499</div>
+    <div class="section-head">
+      <div class="eyebrow">✦ Simple & transparent pricing</div>
 
-      <ul>
-        <li>Complete tank cleaning</li>
-        <li>Sludge removal</li>
-        <li>Professional cleaning</li>
-        <li>Before & after inspection</li>
-      </ul>
+      <h1>
+        Choose your tank size
+      </h1>
+
+      <p>
+        Select the tank size you need cleaned and add it to your cart.
+        Multiple tanks automatically receive discounts.
+      </p>
+    </div>
+
+
+    <!-- TANK TYPE -->
+    <div class="tank-selector">
 
       <button
-        class="add-to-cart-btn"
-        onclick="addToCart('Small Tank Cleaning', 499)">
-        Add to Cart
+        type="button"
+        class="tank-type active"
+        data-tank-type="overhead"
+      >
+        💧
+        <span>
+          <strong>Overhead Tank</strong>
+          <small>Rooftop & household tanks</small>
+        </span>
       </button>
-    </div>
-
-    <div class="price-card">
-      <h2>Medium Tank</h2>
-      <p class="tank-size">501–1000 Litres</p>
-      <div class="price">₹599</div>
-
-      <ul>
-        <li>Complete tank cleaning</li>
-        <li>Sludge removal</li>
-        <li>Professional cleaning</li>
-        <li>Before & after inspection</li>
-      </ul>
 
       <button
-        class="add-to-cart-btn"
-        onclick="addToCart('Medium Tank Cleaning', 599)">
-        Add to Cart
+        type="button"
+        class="tank-type"
+        data-tank-type="underground"
+      >
+        🧱
+        <span>
+          <strong>Underground Tank</strong>
+          <small>Sumps & underground storage</small>
+        </span>
       </button>
+
     </div>
 
-    <div class="price-card">
-      <h2>Large Tank</h2>
-      <p class="tank-size">1001–2000 Litres</p>
-      <div class="price">₹799</div>
 
-      <ul>
-        <li>Complete tank cleaning</li>
-        <li>Sludge removal</li>
-        <li>Professional cleaning</li>
-        <li>Before & after inspection</li>
-      </ul>
+    <!-- OVERHEAD TANKS -->
+    <div
+      class="tank-options"
+      id="overhead-tanks"
+    >
 
-      <button
-        class="add-to-cart-btn"
-        onclick="addToCart('Large Tank Cleaning', 799)">
-        Add to Cart
-      </button>
+      <div
+        class="selectable-tank"
+        data-add
+        data-type="overhead"
+        data-size="500"
+        data-price="499"
+      >
+
+        <div class="tank-option-top">
+          <span class="tank-option-icon">💧</span>
+
+          <span class="tank-option-check">
+            ✓
+          </span>
+        </div>
+
+        <h2>Up to 500 L</h2>
+
+        <p>
+          Small household overhead tank
+        </p>
+
+        <div class="tank-price">
+          ₹499
+        </div>
+
+        <div class="tank-features">
+          <span>✓ Complete cleaning</span>
+          <span>✓ Sludge removal</span>
+          <span>✓ Scrubbing & washing</span>
+          <span>✓ Before & after proof</span>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-blue select-tank-btn"
+        >
+          Select Tank →
+        </button>
+
+      </div>
+
+
+      <div
+        class="selectable-tank"
+        data-add
+        data-type="overhead"
+        data-size="1000"
+        data-price="599"
+      >
+
+        <div class="tank-option-top">
+          <span class="tank-option-icon">💧</span>
+
+          <span class="tank-option-check">
+            ✓
+          </span>
+        </div>
+
+        <h2>501–1,000 L</h2>
+
+        <p>
+          Medium household overhead tank
+        </p>
+
+        <div class="tank-price">
+          ₹599
+        </div>
+
+        <div class="tank-features">
+          <span>✓ Complete cleaning</span>
+          <span>✓ Sludge removal</span>
+          <span>✓ Scrubbing & washing</span>
+          <span>✓ Before & after proof</span>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-blue select-tank-btn"
+        >
+          Select Tank →
+        </button>
+
+      </div>
+
+
+      <div
+        class="selectable-tank"
+        data-add
+        data-type="overhead"
+        data-size="1500"
+        data-price="799"
+      >
+
+        <div class="tank-option-top">
+          <span class="tank-option-icon">💧</span>
+
+          <span class="tank-option-check">
+            ✓
+          </span>
+        </div>
+
+        <h2>1,001–1,500 L</h2>
+
+        <p>
+          Large overhead tank
+        </p>
+
+        <div class="tank-price">
+          ₹799
+        </div>
+
+        <div class="tank-features">
+          <span>✓ Complete cleaning</span>
+          <span>✓ Sludge removal</span>
+          <span>✓ Pressure washing</span>
+          <span>✓ Before & after proof</span>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-blue select-tank-btn"
+        >
+          Select Tank →
+        </button>
+
+      </div>
+
+
+      <div
+        class="selectable-tank featured-tank"
+        data-add
+        data-type="overhead"
+        data-size="2000"
+        data-price="999"
+      >
+
+        <div class="popular">
+          MOST POPULAR
+        </div>
+
+        <div class="tank-option-top">
+          <span class="tank-option-icon">💧</span>
+
+          <span class="tank-option-check">
+            ✓
+          </span>
+        </div>
+
+        <h2>1,501–2,000 L</h2>
+
+        <p>
+          Large residential overhead tank
+        </p>
+
+        <div class="tank-price">
+          ₹999
+        </div>
+
+        <div class="tank-features">
+          <span>✓ Complete cleaning</span>
+          <span>✓ Sludge removal</span>
+          <span>✓ Pressure washing</span>
+          <span>✓ Before & after proof</span>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-blue select-tank-btn"
+        >
+          Select Tank →
+        </button>
+
+      </div>
+
+
+      <div
+        class="selectable-tank"
+        data-add
+        data-type="overhead"
+        data-size="5000"
+        data-price="1999"
+      >
+
+        <div class="tank-option-top">
+          <span class="tank-option-icon">💧</span>
+
+          <span class="tank-option-check">
+            ✓
+          </span>
+        </div>
+
+        <h2>2,500–5,000 L</h2>
+
+        <p>
+          Large storage tank
+        </p>
+
+        <div class="tank-price">
+          ₹1,999
+        </div>
+
+        <div class="tank-features">
+          <span>✓ Complete cleaning</span>
+          <span>✓ Heavy sludge removal</span>
+          <span>✓ Pressure washing</span>
+          <span>✓ Before & after proof</span>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-blue select-tank-btn"
+        >
+          Select Tank →
+        </button>
+
+      </div>
+
     </div>
 
-  </section>
 
-  <section class="discount-info">
-    <h2>Multi-Tank Discount</h2>
+    <!-- UNDERGROUND -->
+    <div
+      class="tank-options hidden"
+      id="underground-tanks"
+    >
 
-    <div class="discount-grid">
-      <div>
-        <strong>2 Tanks</strong>
-        <span>10% OFF</span>
+      <div
+        class="selectable-tank"
+        data-add
+        data-type="underground"
+        data-size="1000"
+        data-price="799"
+      >
+
+        <div class="tank-option-top">
+          <span class="tank-option-icon">🧱</span>
+
+          <span class="tank-option-check">✓</span>
+        </div>
+
+        <h2>Up to 1,000 L</h2>
+
+        <p>
+          Small underground sump
+        </p>
+
+        <div class="tank-price">
+          ₹799
+        </div>
+
+        <div class="tank-features">
+          <span>✓ Complete cleaning</span>
+          <span>✓ Sludge removal</span>
+          <span>✓ Scrubbing & washing</span>
+          <span>✓ Before & after proof</span>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-blue select-tank-btn"
+        >
+          Select Tank →
+        </button>
+
       </div>
 
-      <div>
-        <strong>3–4 Tanks</strong>
-        <span>12% OFF</span>
+
+      <div
+        class="selectable-tank"
+        data-add
+        data-type="underground"
+        data-size="2000"
+        data-price="999"
+      >
+
+        <div class="tank-option-top">
+          <span class="tank-option-icon">🧱</span>
+
+          <span class="tank-option-check">✓</span>
+        </div>
+
+        <h2>1,001–2,000 L</h2>
+
+        <p>
+          Medium underground sump
+        </p>
+
+        <div class="tank-price">
+          ₹999
+        </div>
+
+        <div class="tank-features">
+          <span>✓ Complete cleaning</span>
+          <span>✓ Sludge removal</span>
+          <span>✓ Pressure washing</span>
+          <span>✓ Before & after proof</span>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-blue select-tank-btn"
+        >
+          Select Tank →
+        </button>
+
       </div>
 
-      <div>
-        <strong>5+ Tanks</strong>
-        <span>15% OFF</span>
+
+      <div
+        class="selectable-tank"
+        data-add
+        data-type="underground"
+        data-size="5000"
+        data-price="1999"
+      >
+
+        <div class="tank-option-top">
+          <span class="tank-option-icon">🧱</span>
+
+          <span class="tank-option-check">✓</span>
+        </div>
+
+        <h2>2,001–5,000 L</h2>
+
+        <p>
+          Large underground storage
+        </p>
+
+        <div class="tank-price">
+          ₹1,999
+        </div>
+
+        <div class="tank-features">
+          <span>✓ Complete cleaning</span>
+          <span>✓ Heavy sludge removal</span>
+          <span>✓ Pressure washing</span>
+          <span>✓ Before & after proof</span>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-blue select-tank-btn"
+        >
+          Select Tank →
+        </button>
+
       </div>
 
-      <div>
-        <strong>Online Payment</strong>
-        <span>Extra 5% OFF</span>
-      </div>
     </div>
-  </section>
+
+
+    <!-- DISCOUNTS -->
+    <div class="discount-info">
+
+      <h2>
+        🛒 Multi-Tank Discounts
+      </h2>
+
+      <div class="discount-grid">
+
+        <div>
+          <strong>1 Tank</strong>
+          <span>No discount</span>
+        </div>
+
+        <div>
+          <strong>2 Tanks</strong>
+          <span>10% OFF</span>
+        </div>
+
+        <div>
+          <strong>3 Tanks</strong>
+          <span>12% OFF</span>
+        </div>
+
+        <div>
+          <strong>5+ Tanks</strong>
+          <span>15% OFF</span>
+        </div>
+
+      </div>
+
+      <p style="text-align:center;margin-top:18px;color:#b8c8d8;font-size:12px;">
+        Online payment gives an additional 5% discount.
+      </p>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- CTA -->
+<section class="section soft">
+  <div class="container">
+
+    <div class="cta">
+
+      <div>
+        <h2>Need help choosing your tank size?</h2>
+
+        <p>
+          Send us a photo or tank capacity on WhatsApp and we'll help you choose.
+        </p>
+      </div>
+
+      <div class="actions">
+
+        <a
+          class="btn btn-green"
+          href="https://wa.me/919599057079"
+        >
+          WhatsApp
+        </a>
+
+        <a
+          class="btn btn-black"
+          href="tel:+919599057079"
+        >
+          ☎ Call
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
 
 </main>
 
+
+<!-- FOOTER -->
+<footer class="footer">
+
+  <div class="container footer-grid">
+
+    <div>
+      <a class="brand" href="index.html">
+
+        <img
+          src="assets/vsh-logo.jpg"
+          alt="VSH Tank Cleaning"
+        >
+
+        <span>
+          <strong>VSH Tank Cleaning</strong>
+          <small>PROFESSIONAL WATER TANK CLEANING</small>
+        </span>
+
+      </a>
+
+      <p>
+        Professional overhead and underground water tank cleaning
+        across Delhi NCR.
+      </p>
+
+      <a
+        class="btn btn-green"
+        href="https://wa.me/919599057079"
+      >
+        WhatsApp
+      </a>
+
+    </div>
+
+
+    <div>
+      <h3>Services</h3>
+
+      <a href="services.html">Water tank cleaning</a>
+      <a href="services.html#overhead">Overhead tank cleaning</a>
+      <a href="services.html#underground">Underground tank cleaning</a>
+      <a href="services.html#societies">Society tank cleaning</a>
+
+    </div>
+
+
+    <div>
+      <h3>Service Areas</h3>
+
+      <a href="areas.html">Delhi</a>
+      <a href="areas.html">West Delhi</a>
+      <a href="areas.html">South Delhi</a>
+      <a href="areas.html">Gurgaon</a>
+      <a href="areas.html">Noida</a>
+      <a href="areas.html">Ghaziabad</a>
+
+    </div>
+
+
+    <div>
+      <h3>Help & Guides</h3>
+
+      <a href="prices.html">Price list</a>
+      <a href="cart.html">Book online</a>
+      <a href="process.html">Cleaning process</a>
+      <a href="guides.html">Tank care guides</a>
+      <a href="about.html">About VSH</a>
+      <a href="contact.html">Contact</a>
+
+    </div>
+
+  </div>
+
+
+  <div class="container footer-bottom">
+
+    <span>
+      © 2026 VSH Tank Cleaning. All rights reserved.
+    </span>
+
+    <span>
+      Built for Delhi NCR homeowners & businesses.
+    </span>
+
+  </div>
+
+</footer>
+
+
+<a
+  class="floating-wa"
+  href="https://wa.me/919599057079"
+  aria-label="WhatsApp"
+>
+  ◔
+</a>
+
+
 <script src="js/app.js"></script>
+
+
+<!-- TANK TYPE SELECTION -->
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const typeButtons =
+    document.querySelectorAll(".tank-type");
+
+  const overhead =
+    document.getElementById("overhead-tanks");
+
+  const underground =
+    document.getElementById("underground-tanks");
+
+
+  typeButtons.forEach(function (button) {
+
+    button.addEventListener("click", function () {
+
+      typeButtons.forEach(function (btn) {
+        btn.classList.remove("active");
+      });
+
+      button.classList.add("active");
+
+
+      if (button.dataset.tankType === "overhead") {
+
+        overhead.classList.remove("hidden");
+        underground.classList.add("hidden");
+
+      } else {
+
+        underground.classList.remove("hidden");
+        overhead.classList.add("hidden");
+
+      }
+
+    });
+
+  });
+
+
+  /*
+    Make the whole tank card clickable.
+    Clicking anywhere on a card selects/adds that tank.
+  */
+
+  document
+    .querySelectorAll(".selectable-tank")
+    .forEach(function (card) {
+
+      card.addEventListener("click", function (event) {
+
+        if (
+          event.target.closest("button")
+        ) {
+          return;
+        }
+
+        const button =
+          card.querySelector(".select-tank-btn");
+
+        if (button) {
+          button.click();
+        }
+
+      });
+
+    });
+
+});
+
+</script>
 
 </body>
 </html>
