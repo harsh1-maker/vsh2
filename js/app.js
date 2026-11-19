@@ -1,512 +1,929 @@
+/* =========================================================
+   VSH TANK CLEANING - MAIN JAVASCRIPT
+   Works with the current HTML structure
+========================================================= */
+
 const CART_KEY = "vsh_tank_cart";
 
+/* =========================================================
+   CART STORAGE
+========================================================= */
+
 function getCart() {
-  return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    try {
+        return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    } catch (error) {
+        return [];
+    }
 }
 
 function saveCart(cart) {
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
-  updateCartCount();
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
 }
 
-function addToCart(name, price) {
+/* =========================================================
+   ADD TO CART
+   Works with:
+   addToCart({
+       name: "...",
+       price: 499
+   })
+========================================================= */
 
-  let cart = getCart();
+function addToCart(item) {
 
-  const existing = cart.find(item => item.name === name);
+    if (!item || !item.name || !item.price) {
+        console.error("Invalid cart item:", item);
+        return;
+    }
 
-  if (existing) {
-    existing.quantity += 1;
-  } else {
-    cart.push({
-      name: name,
-      price: price,
-      quantity: 1
-    });
-  }
+    let cart = getCart();
 
-  saveCart(cart);
+    const existingItem = cart.find(
+        product => product.name === item.name
+    );
 
-  alert("Service added to cart.");
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            name: item.name,
+            price: Number(item.price),
+            quantity: 1
+        });
+    }
 
-  window.location.href = "cart.html";
+    saveCart(cart);
+
+    updateCartCount();
+
+    showCartMessage(`${item.name} added to cart`);
+
+    /* If currently on cart page, refresh it */
+    if (document.getElementById("cart-root")) {
+        renderCart();
+    }
 }
+
+/* =========================================================
+   REMOVE ITEM
+========================================================= */
 
 function removeFromCart(index) {
 
-  let cart = getCart();
+    let cart = getCart();
 
-  cart.splice(index, 1);
+    if (index < 0 || index >= cart.length) return;
 
-  saveCart(cart);
+    cart.splice(index, 1);
 
-  renderCart();
+    saveCart(cart);
+
+    updateCartCount();
+    renderCart();
 }
+
+/* =========================================================
+   CHANGE QUANTITY
+========================================================= */
 
 function changeQuantity(index, change) {
 
-  let cart = getCart();
+    let cart = getCart();
 
-  cart[index].quantity += change;
+    if (!cart[index]) return;
 
-  if (cart[index].quantity <= 0) {
-    cart.splice(index, 1);
-  }
+    cart[index].quantity += change;
 
-  saveCart(cart);
+    if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+    }
 
-  renderCart();
+    saveCart(cart);
+
+    updateCartCount();
+    renderCart();
 }
 
-function getTotalItems(cart) {
-
-  return cart.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
-}
-
-function getDiscountRate(totalItems) {
-
-  if (totalItems >= 5) {
-    return 0.15;
-  }
-
-  if (totalItems >= 3) {
-    return 0.12;
-  }
-
-  if (totalItems >= 2) {
-    return 0.10;
-  }
-
-  return 0;
-}
-
-function calculateTotals(paymentMethod = "online") {
-
-  const cart = getCart();
-
-  let subtotal = 0;
-
-  cart.forEach(item => {
-    subtotal += item.price * item.quantity;
-  });
-
-  const totalItems = getTotalItems(cart);
-
-  const multiTankRate = getDiscountRate(totalItems);
-
-  const multiTankDiscount =
-    subtotal * multiTankRate;
-
-  const afterMultiTank =
-    subtotal - multiTankDiscount;
-
-  let onlineDiscount = 0;
-
-  if (paymentMethod === "online") {
-    onlineDiscount = afterMultiTank * 0.05;
-  }
-
-  const finalTotal =
-    afterMultiTank - onlineDiscount;
-
-  return {
-    subtotal,
-    totalItems,
-    multiTankRate,
-    multiTankDiscount,
-    onlineDiscount,
-    finalTotal
-  };
-}
+/* =========================================================
+   CART COUNT
+========================================================= */
 
 function updateCartCount() {
 
-  const cart = getCart();
+    const cart = getCart();
 
-  const count = getTotalItems(cart);
+    let totalItems = 0;
 
-  const elements =
-    document.querySelectorAll("#cart-count");
+    cart.forEach(item => {
+        totalItems += item.quantity;
+    });
 
-  elements.forEach(element => {
-    element.textContent = count;
-  });
+    const counters = document.querySelectorAll(
+        "#cart-count, .cart-count"
+    );
+
+    counters.forEach(counter => {
+        counter.textContent = totalItems;
+    });
 }
+
+/* =========================================================
+   DISCOUNT RULES
+========================================================= */
+
+function getDiscountRate(totalItems) {
+
+    if (totalItems >= 5) {
+        return 0.15; // 15%
+    }
+
+    if (totalItems >= 3) {
+        return 0.12; // 12%
+    }
+
+    if (totalItems >= 2) {
+        return 0.10; // 10%
+    }
+
+    return 0;
+}
+
+/* =========================================================
+   CALCULATE TOTALS
+========================================================= */
+
+function calculateTotals(paymentMethod = "after-service") {
+
+    const cart = getCart();
+
+    let subtotal = 0;
+    let totalItems = 0;
+
+    cart.forEach(item => {
+        subtotal += Number(item.price) * Number(item.quantity);
+        totalItems += Number(item.quantity);
+    });
+
+    const discountRate = getDiscountRate(totalItems);
+
+    const quantityDiscount =
+        subtotal * discountRate;
+
+    let onlineDiscount = 0;
+
+    if (
+        paymentMethod === "online" &&
+        subtotal - quantityDiscount > 0
+    ) {
+        onlineDiscount =
+            (subtotal - quantityDiscount) * 0.05;
+    }
+
+    const total =
+        subtotal -
+        quantityDiscount -
+        onlineDiscount;
+
+    return {
+        subtotal: subtotal,
+        quantityDiscount: quantityDiscount,
+        onlineDiscount: onlineDiscount,
+        total: total,
+        totalItems: totalItems,
+        discountRate: discountRate
+    };
+}
+
+/* =========================================================
+   FORMAT MONEY
+========================================================= */
+
+function formatMoney(amount) {
+
+    return "₹" + Number(amount).toLocaleString("en-IN", {
+        maximumFractionDigits: 2
+    });
+}
+
+/* =========================================================
+   SHOW ADD TO CART MESSAGE
+========================================================= */
+
+function showCartMessage(message) {
+
+    let notification =
+        document.getElementById("cart-notification");
+
+    if (!notification) {
+
+        notification = document.createElement("div");
+
+        notification.id = "cart-notification";
+
+        notification.style.position = "fixed";
+        notification.style.top = "90px";
+        notification.style.right = "20px";
+        notification.style.background = "#16a34a";
+        notification.style.color = "#ffffff";
+        notification.style.padding = "14px 20px";
+        notification.style.borderRadius = "10px";
+        notification.style.fontWeight = "600";
+        notification.style.zIndex = "99999";
+        notification.style.boxShadow =
+            "0 10px 30px rgba(0,0,0,0.2)";
+        notification.style.transition =
+            "opacity 0.3s ease";
+
+        document.body.appendChild(notification);
+    }
+
+    notification.textContent = "✓ " + message;
+    notification.style.opacity = "1";
+
+    clearTimeout(window.cartNotificationTimer);
+
+    window.cartNotificationTimer = setTimeout(() => {
+        notification.style.opacity = "0";
+    }, 2500);
+}
+
+/* =========================================================
+   RENDER CART
+========================================================= */
 
 function renderCart() {
 
-  const root =
-    document.getElementById("cart-root");
+    const cartRoot = document.getElementById("cart-root");
 
-  if (!root) {
-    return;
-  }
+    if (!cartRoot) return;
 
-  const cart = getCart();
+    const cartItemsContainer =
+        document.getElementById("cart-items");
 
-  if (cart.length === 0) {
+    const emptyCart =
+        document.getElementById("empty-cart");
 
-    root.innerHTML = `
-      <div class="empty-cart">
-        <h2>Your cart is empty</h2>
-        <p>Add a tank cleaning service to continue.</p>
+    const checkoutSection =
+        document.getElementById("checkout-section");
 
-        <a href="prices.html" class="checkout-btn">
-          View Prices
-        </a>
-      </div>
-    `;
+    const cart = getCart();
 
-    return;
-  }
+    /* Empty cart */
 
-  let html = `
-    <div class="cart-items">
-  `;
+    if (cart.length === 0) {
 
-  cart.forEach((item, index) => {
+        if (cartItemsContainer) {
+            cartItemsContainer.innerHTML = "";
+        }
 
-    html += `
-      <div class="cart-item">
+        if (emptyCart) {
+            emptyCart.style.display = "block";
+        }
 
-        <div class="cart-item-info">
-          <h3>${item.name}</h3>
-          <p>₹${item.price} per tank</p>
-        </div>
+        if (checkoutSection) {
+            checkoutSection.style.display = "none";
+        }
 
-        <div class="quantity-control">
+        updateCartCount();
 
-          <button
-            onclick="changeQuantity(${index}, -1)">
-            −
-          </button>
+        return;
+    }
 
-          <span>${item.quantity}</span>
+    /* Cart has items */
 
-          <button
-            onclick="changeQuantity(${index}, 1)">
-            +
-          </button>
+    if (emptyCart) {
+        emptyCart.style.display = "none";
+    }
 
-        </div>
+    if (checkoutSection) {
+        checkoutSection.style.display = "block";
+    }
 
-        <div class="item-total">
-          ₹${item.price * item.quantity}
-        </div>
+    let html = "";
 
-        <button
-          class="remove-btn"
-          onclick="removeFromCart(${index})">
-          Remove
-        </button>
+    cart.forEach((item, index) => {
 
-      </div>
-    `;
+        const itemTotal =
+            Number(item.price) * Number(item.quantity);
 
-  });
+        html += `
+            <div class="cart-item">
 
-  html += `
-    </div>
-  `;
+                <div class="cart-item-info">
 
-  root.innerHTML = html;
+                    <h3>${escapeHTML(item.name)}</h3>
+
+                    <p>
+                        ${formatMoney(item.price)} each
+                    </p>
+
+                </div>
+
+                <div class="quantity-control">
+
+                    <button
+                        type="button"
+                        onclick="changeQuantity(${index}, -1)">
+                        −
+                    </button>
+
+                    <span>
+                        ${item.quantity}
+                    </span>
+
+                    <button
+                        type="button"
+                        onclick="changeQuantity(${index}, 1)">
+                        +
+                    </button>
+
+                </div>
+
+                <div class="cart-item-total">
+                    ${formatMoney(itemTotal)}
+                </div>
+
+                <button
+                    type="button"
+                    class="remove-btn"
+                    onclick="removeFromCart(${index})">
+                    Remove
+                </button>
+
+            </div>
+        `;
+    });
+
+    if (cartItemsContainer) {
+        cartItemsContainer.innerHTML = html;
+    }
+
+    updateSummary();
+
+    updateCartCount();
 }
 
-function renderOrderSummary() {
+/* =========================================================
+   UPDATE SUMMARY
+========================================================= */
 
-  const summary =
-    document.getElementById("order-summary");
+function updateSummary() {
 
-  if (!summary) {
-    return;
-  }
+    const paymentInput =
+        document.querySelector(
+            'input[name="payment"]:checked'
+        );
 
-  const paymentMethod =
-    document.querySelector(
-      'input[name="payment-method"]:checked'
-    )?.value || "online";
+    const paymentMethod =
+        paymentInput
+            ? paymentInput.value
+            : "after-service";
 
-  const totals =
-    calculateTotals(paymentMethod);
+    const totals =
+        calculateTotals(paymentMethod);
 
-  if (totals.totalItems === 0) {
+    const subtotalElement =
+        document.getElementById("summary-subtotal");
 
-    summary.innerHTML = "";
+    const discountElement =
+        document.getElementById("summary-discount");
 
-    return;
-  }
+    const onlineDiscountRow =
+        document.getElementById("online-discount-row");
 
-  let discountText =
-    `${Math.round(totals.multiTankRate * 100)}%`;
+    const onlineDiscountElement =
+        document.getElementById(
+            "summary-online-discount"
+        );
 
-  summary.innerHTML = `
+    const totalElement =
+        document.getElementById("summary-total");
 
-    <div class="summary-box">
+    if (subtotalElement) {
+        subtotalElement.textContent =
+            formatMoney(totals.subtotal);
+    }
 
-      <h2>Order Summary</h2>
+    if (discountElement) {
 
-      <div class="summary-row">
-        <span>Number of Tanks</span>
-        <strong>${totals.totalItems}</strong>
-      </div>
+        if (totals.quantityDiscount > 0) {
 
-      <div class="summary-row">
-        <span>Subtotal</span>
-        <strong>₹${totals.subtotal.toFixed(2)}</strong>
-      </div>
+            discountElement.textContent =
+                "-" +
+                formatMoney(totals.quantityDiscount) +
+                ` (${Math.round(
+                    totals.discountRate * 100
+                )}% bulk discount)`;
 
-      ${
-        totals.multiTankDiscount > 0
-        ? `
-          <div class="summary-row discount">
-            <span>
-              Multi-Tank Discount (${discountText})
-            </span>
+        } else {
 
-            <strong>
-              -₹${totals.multiTankDiscount.toFixed(2)}
-            </strong>
-          </div>
-        `
-        : ""
-      }
+            discountElement.textContent =
+                "₹0";
+        }
+    }
 
-      ${
-        paymentMethod === "online"
-        ? `
-          <div class="summary-row discount">
-            <span>Online Payment Discount (5%)</span>
+    if (onlineDiscountRow) {
 
-            <strong>
-              -₹${totals.onlineDiscount.toFixed(2)}
-            </strong>
-          </div>
-        `
-        : `
-          <div class="summary-row">
-            <span>Online Discount</span>
-            <strong>₹0</strong>
-          </div>
-        `
-      }
+        if (paymentMethod === "online") {
+            onlineDiscountRow.style.display = "flex";
+        } else {
+            onlineDiscountRow.style.display = "none";
+        }
+    }
 
-      <div class="summary-total">
-        <span>Total Amount</span>
-        <strong>
-          ₹${totals.finalTotal.toFixed(2)}
-        </strong>
-      </div>
+    if (onlineDiscountElement) {
 
-    </div>
+        onlineDiscountElement.textContent =
+            "-" +
+            formatMoney(totals.onlineDiscount);
+    }
 
-  `;
+    if (totalElement) {
+
+        totalElement.textContent =
+            formatMoney(totals.total);
+    }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+/* =========================================================
+   PAYMENT METHOD
+========================================================= */
 
-  updateCartCount();
+function setupPaymentMethods() {
 
-  renderCart();
+    const paymentOptions =
+        document.querySelectorAll(
+            'input[name="payment"]'
+        );
 
-  renderOrderSummary();
+    paymentOptions.forEach(input => {
 
-  const paymentInputs =
-    document.querySelectorAll(
-      'input[name="payment-method"]'
-    );
+        input.addEventListener("change", function () {
 
-  paymentInputs.forEach(input => {
+            updateSummary();
 
-    input.addEventListener(
-      "change",
-      renderOrderSummary
-    );
+        });
 
-  });
+    });
+}
 
-  const bookingForm =
-    document.getElementById("booking-form");
+/* =========================================================
+   BOOKING FORM
+========================================================= */
 
-  if (bookingForm) {
+function setupBookingForm() {
 
-    bookingForm.addEventListener(
-      "submit",
-      async function(event) {
+    const form =
+        document.getElementById("booking-form");
+
+    if (!form) return;
+
+    form.addEventListener("submit", async function (event) {
 
         event.preventDefault();
 
         const cart = getCart();
 
         if (cart.length === 0) {
-          alert("Your cart is empty.");
-          return;
+
+            alert("Your cart is empty.");
+
+            return;
         }
 
-        const name =
-          document.getElementById(
-            "customer-name"
-          ).value;
+        const submitButton =
+            document.getElementById(
+                "booking-submit"
+            );
 
-        const phone =
-          document.getElementById(
-            "customer-phone"
-          ).value;
+        if (submitButton) {
 
-        const address =
-          document.getElementById(
-            "customer-address"
-          ).value;
+            submitButton.disabled = true;
 
-        const serviceDate =
-          document.getElementById(
-            "service-date"
-          ).value;
+            submitButton.textContent =
+                "Processing...";
+        }
+
+        const paymentInput =
+            document.querySelector(
+                'input[name="payment"]:checked'
+            );
 
         const paymentMethod =
-          document.querySelector(
-            'input[name="payment-method"]:checked'
-          ).value;
+            paymentInput
+                ? paymentInput.value
+                : "after-service";
 
         const totals =
-          calculateTotals(paymentMethod);
+            calculateTotals(paymentMethod);
 
-        const bookingData = {
+        const formData =
+            new FormData(form);
 
-          customer: {
-            name,
-            phone,
-            address
-          },
+        const customer = {
 
-          serviceDate,
+            name:
+                formData.get("name") || "",
 
-          items: cart,
+            phone:
+                formData.get("phone") || "",
 
-          pricing: totals,
+            address:
+                formData.get("address") || "",
 
-          paymentMethod
+            serviceDate:
+                formData.get("service-date") || "",
 
+            paymentMethod:
+                paymentMethod
         };
 
-        /*
-          IMPORTANT:
+        const orderData = {
 
-          Razorpay and Resend should be called
-          from your backend server.
+            customer: customer,
 
-          Do NOT put your Razorpay secret key
-          or Resend API key inside this file.
+            items: cart,
 
-          The backend endpoint below will handle
-          the secure payment/email process.
-        */
+            pricing: totals
+        };
+
+        /* =================================================
+           ONLINE PAYMENT
+        ================================================= */
+
+        if (paymentMethod === "online") {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/create-booking",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    orderData
+                                )
+                        }
+                    );
+
+                const data =
+                    await response.json();
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Unable to create payment."
+                    );
+                }
+
+                /* Razorpay */
+
+                if (
+                    typeof Razorpay !==
+                    "undefined"
+                ) {
+
+                    const options = {
+
+                        key:
+                            data.key,
+
+                        amount:
+                            data.amount,
+
+                        currency:
+                            data.currency ||
+                            "INR",
+
+                        name:
+                            "VSH Tank Cleaning",
+
+                        description:
+                            "Tank Cleaning Service",
+
+                        order_id:
+                            data.orderId,
+
+                        prefill: {
+
+                            name:
+                                customer.name,
+
+                            contact:
+                                customer.phone
+                        },
+
+                        handler:
+                            async function (
+                                paymentResponse
+                            ) {
+
+                                try {
+
+                                    const verifyResponse =
+                                        await fetch(
+                                            "/api/verify-payment",
+                                            {
+                                                method:
+                                                    "POST",
+
+                                                headers: {
+                                                    "Content-Type":
+                                                        "application/json"
+                                                },
+
+                                                body:
+                                                    JSON.stringify(
+                                                        {
+                                                            ...orderData,
+
+                                                            payment:
+                                                                paymentResponse
+                                                        }
+                                                    )
+                                            }
+                                        );
+
+                                    const verifyData =
+                                        await verifyResponse.json();
+
+                                    if (
+                                        !verifyResponse.ok
+                                    ) {
+
+                                        throw new Error(
+                                            verifyData.message ||
+                                            "Payment verification failed."
+                                        );
+                                    }
+
+                                    localStorage.removeItem(
+                                        CART_KEY
+                                    );
+
+                                    alert(
+                                        "Booking confirmed successfully!"
+                                    );
+
+                                    window.location.href =
+                                        "index.html";
+
+                                } catch (error) {
+
+                                    console.error(
+                                        error
+                                    );
+
+                                    alert(
+                                        "Payment was received, but booking confirmation failed. Please contact us."
+                                    );
+                                }
+                            },
+
+                        modal: {
+
+                            ondismiss:
+                                function () {
+
+                                    if (
+                                        submitButton
+                                    ) {
+
+                                        submitButton.disabled =
+                                            false;
+
+                                        submitButton.textContent =
+                                            "Confirm Booking";
+                                    }
+                                }
+                        }
+
+                    };
+
+                    const razorpay =
+                        new Razorpay(
+                            options
+                        );
+
+                    razorpay.open();
+
+                } else {
+
+                    throw new Error(
+                        "Razorpay failed to load."
+                    );
+                }
+
+            } catch (error) {
+
+                console.error(
+                    error
+                );
+
+                alert(
+                    error.message ||
+                    "Something went wrong while processing your booking."
+                );
+
+                if (submitButton) {
+
+                    submitButton.disabled =
+                        false;
+
+                    submitButton.textContent =
+                        "Confirm Booking";
+                }
+            }
+
+            return;
+        }
+
+        /* =================================================
+           PAY AFTER SERVICE
+        ================================================= */
 
         try {
 
-          const response =
-            await fetch(
-              "/api/create-booking",
-              {
-                method: "POST",
+            const response =
+                await fetch(
+                    "/api/create-booking",
+                    {
+                        method: "POST",
 
-                headers: {
-                  "Content-Type":
-                    "application/json"
-                },
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
 
-                body:
-                  JSON.stringify(bookingData)
-              }
-            );
+                        body:
+                            JSON.stringify(
+                                orderData
+                            )
+                    }
+                );
 
-          const result =
-            await response.json();
+            const data =
+                await response.json();
 
-          if (!response.ok) {
-            throw new Error(
-              result.message ||
-              "Unable to create booking."
-            );
-          }
+            if (!response.ok) {
 
-          if (
-            paymentMethod === "online" &&
-            result.order
-          ) {
-
-            const options = {
-
-              key: result.key,
-
-              amount:
-                result.order.amount,
-
-              currency: "INR",
-
-              name:
-                "VSH Tank Cleaning",
-
-              description:
-                "Tank Cleaning Service",
-
-              order_id:
-                result.order.id,
-
-              handler: function(payment) {
-
-                window.location.href =
-                  "index.html?payment=success";
-
-              },
-
-              prefill: {
-                name: name,
-                contact: phone
-              },
-
-              theme: {
-                color: "#0ea5e9"
-              }
-
-            };
-
-            const razorpay =
-              new Razorpay(options);
-
-            razorpay.open();
-
-          } else {
-
-            alert(
-              "Booking confirmed successfully!"
-            );
+                throw new Error(
+                    data.message ||
+                    "Booking could not be completed."
+                );
+            }
 
             localStorage.removeItem(
-              CART_KEY
+                CART_KEY
+            );
+
+            alert(
+                "Booking confirmed successfully! We will contact you shortly."
             );
 
             window.location.href =
-              "index.html?booking=success";
-
-          }
+                "index.html";
 
         } catch (error) {
 
-          console.error(error);
+            console.error(
+                error
+            );
 
-          alert(
-            error.message ||
-            "Something went wrong while creating your booking."
-          );
+            alert(
+                error.message ||
+                "Something went wrong while booking."
+            );
+
+            if (submitButton) {
+
+                submitButton.disabled =
+                    false;
+
+                submitButton.textContent =
+                    "Confirm Booking";
+            }
+        }
+
+    });
+}
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(text) {
+
+    if (text === undefined ||
+        text === null) {
+
+        return "";
+    }
+
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+/* =========================================================
+   MOBILE NAVIGATION
+========================================================= */
+
+function setupMobileMenu() {
+
+    const menuButton =
+        document.querySelector(
+            ".menu-toggle"
+        );
+
+    const nav =
+        document.querySelector(
+            ".nav-links"
+        );
+
+    if (!menuButton || !nav) {
+        return;
+    }
+
+    menuButton.addEventListener(
+        "click",
+        function () {
+
+            nav.classList.toggle(
+                "active"
+            );
+
+        }
+    );
+}
+
+/* =========================================================
+   ACTIVE NAV LINK
+========================================================= */
+
+function setActiveNav() {
+
+    const currentPage =
+        window.location.pathname
+            .split("/")
+            .pop() || "index.html";
+
+    const links =
+        document.querySelectorAll(
+            ".nav-links a"
+        );
+
+    links.forEach(link => {
+
+        const href =
+            link.getAttribute("href");
+
+        if (
+            href === currentPage
+        ) {
+
+            link.classList.add(
+                "active"
+            );
 
         }
 
-      }
-    );
+    });
+}
 
-  }
+/* =========================================================
+   INITIALIZE
+========================================================= */
 
-});
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        updateCartCount();
+
+        renderCart();
+
+        setupPaymentMethods();
+
+        setupBookingForm();
+
+        setupMobileMenu();
+
+        setActiveNav();
+
+        updateSummary();
+
+    }
+);
