@@ -1,131 +1,397 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Cart - VSH Tank Cleaning</title>
-  <link rel="stylesheet" href="css/styles.css">
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>
+VSH Tank Cleaning | Cart
+</title>
+
+<link rel="stylesheet"
+      href="css/styles.css">
+
 </head>
+
 
 <body>
 
-<header class="navbar">
-  <div class="logo">
-    <a href="index.html">VSH Tank Cleaning</a>
-  </div>
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="prices.html">Prices</a>
-    <a href="about.html">About Us</a>
-    <a href="areas.html">Areas</a>
-    <a href="guides.html">Guides</a>
-    <a href="reviews.html">Reviews</a>
-    <a href="contact.html">Contact</a>
-    <a href="cart.html" class="active cart-link">
-      Cart <span id="cart-count">0</span>
-    </a>
-  </nav>
+<header class="navbar">
+
+<div class="logo">
+
+<a href="index.html">
+VSH Tank Cleaning
+</a>
+
+</div>
+
+
+<nav>
+
+<a href="index.html">
+Home
+</a>
+
+<a href="services.html">
+Services
+</a>
+
+<a href="areas.html">
+Areas
+</a>
+
+<a href="prices.html">
+Prices
+</a>
+
+<a href="process.html">
+Process
+</a>
+
+<a href="reviews.html">
+Reviews
+</a>
+
+<a href="guides.html">
+Guides
+</a>
+
+<a href="about.html">
+About Us
+</a>
+
+<a href="contact.html">
+Contact
+</a>
+
+<a href="cart.html"
+   class="cart-link active">
+
+🛒 Cart
+<span id="cart-count">0</span>
+
+</a>
+
+</nav>
+
 </header>
+
+
 
 <main class="page">
 
-  <section class="hero-section">
-    <h1>Your Cart</h1>
-    <p>Review your tank cleaning services before booking.</p>
-  </section>
 
-  <div id="cart-root"></div>
+<section class="hero-section">
 
-  <section class="checkout-section">
+<h1>
+Your Cart
+</h1>
 
-    <h2>Booking Details</h2>
+<p>
+Review your selected tank cleaning services.
+</p>
 
-    <form id="booking-form">
+</section>
 
-      <div class="form-row">
 
-        <div class="form-group">
-          <label>Full Name</label>
-          <input
-            type="text"
-            id="customer-name"
-            required
-            placeholder="Enter your name">
-        </div>
 
-        <div class="form-group">
-          <label>Phone Number</label>
-          <input
-            type="tel"
-            id="customer-phone"
-            required
-            placeholder="Enter your phone number">
-        </div>
+<div id="cart-root">
 
-      </div>
 
-      <div class="form-group">
-        <label>Service Address</label>
-        <textarea
-          id="customer-address"
-          required
-          placeholder="Enter complete service address"></textarea>
-      </div>
+<div id="cart-items"
+     class="cart-items">
+</div>
 
-      <div class="form-group">
-        <label>Preferred Date</label>
-        <input
-          type="date"
-          id="service-date"
-          required>
-      </div>
 
-      <h3>Payment Method</h3>
 
-      <div class="payment-options">
+<div id="empty-cart"
+     class="empty-cart"
+     style="display:none;">
 
-        <label class="payment-option">
-          <input
-            type="radio"
-            name="payment-method"
-            value="online"
-            checked>
+<h2>
+Your cart is empty
+</h2>
 
-          <span>
-            <strong>Pay Online</strong>
-            <small>Get an additional 5% discount</small>
-          </span>
-        </label>
+<p>
+Select a tank cleaning service to continue.
+</p>
 
-        <label class="payment-option">
-          <input
-            type="radio"
-            name="payment-method"
-            value="after-service">
+<a href="prices.html"
+   class="checkout-btn">
 
-          <span>
-            <strong>Pay After Service</strong>
-            <small>Pay after the cleaning is completed</small>
-          </span>
-        </label>
+Browse Tank Prices
 
-      </div>
+</a>
 
-      <div id="order-summary"></div>
+</div>
 
-      <button
-        type="submit"
-        class="checkout-btn">
-        Continue to Payment
-      </button>
 
-    </form>
 
-  </section>
+<section
+id="checkout-section"
+class="checkout-section">
+
+
+<h2>
+Booking Details
+</h2>
+
+
+<form id="booking-form">
+
+
+<div class="form-row">
+
+
+<div class="form-group">
+
+<label for="customer-name">
+Name
+</label>
+
+<input
+id="customer-name"
+name="name"
+type="text"
+placeholder="Your full name"
+required>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label for="customer-phone">
+Phone
+</label>
+
+<input
+id="customer-phone"
+name="phone"
+type="tel"
+placeholder="10-digit phone number"
+required>
+
+</div>
+
+
+</div>
+
+
+
+<div class="form-group">
+
+<label for="address">
+Service Address
+</label>
+
+<textarea
+id="address"
+name="address"
+placeholder="Enter complete service address"
+required></textarea>
+
+</div>
+
+
+
+<div class="form-row">
+
+
+<div class="form-group">
+
+<label for="service-date">
+Preferred Service Date
+</label>
+
+<input
+id="service-date"
+name="serviceDate"
+type="date"
+required>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label for="service-time">
+Preferred Time
+</label>
+
+<input
+id="service-time"
+name="serviceTime"
+type="time"
+required>
+
+</div>
+
+
+</div>
+
+
+
+<div class="form-group">
+
+<label>
+Payment Method
+</label>
+
+
+<div class="payment-options">
+
+
+<label class="payment-option">
+
+<input
+type="radio"
+name="paymentMethod"
+value="online"
+checked>
+
+<span>
+
+<strong>
+Pay Online
+</strong>
+
+<small>
+Additional 5% discount
+</small>
+
+</span>
+
+</label>
+
+
+
+<label class="payment-option">
+
+<input
+type="radio"
+name="paymentMethod"
+value="after-service">
+
+<span>
+
+<strong>
+Pay After Service
+</strong>
+
+<small>
+Pay after cleaning
+</small>
+
+</span>
+
+</label>
+
+
+</div>
+
+</div>
+
+
+
+<div class="summary-box">
+
+
+<h2>
+Order Summary
+</h2>
+
+
+<div class="summary-row">
+
+<span>
+Subtotal
+</span>
+
+<strong id="summary-subtotal">
+₹0
+</strong>
+
+</div>
+
+
+
+<div class="summary-row discount">
+
+<span>
+Multi-tank discount
+</span>
+
+<strong id="summary-discount">
+-₹0
+</strong>
+
+</div>
+
+
+
+<div
+class="summary-row discount"
+id="online-discount-row">
+
+<span>
+Online payment discount
+</span>
+
+<strong id="summary-online-discount">
+-₹0
+</strong>
+
+</div>
+
+
+
+<div class="summary-total">
+
+<span>
+Total
+</span>
+
+<strong id="summary-total">
+₹0
+</strong>
+
+</div>
+
+
+</div>
+
+
+
+<button
+type="submit"
+class="checkout-btn"
+id="booking-submit">
+
+Confirm Booking
+
+</button>
+
+
+</form>
+
+</section>
+
+
+</div>
+
 
 </main>
+
+
 
 <script src="js/app.js"></script>
 
