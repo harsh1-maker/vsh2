@@ -1,399 +1,756 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="utf-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width,initial-scale=1"
+    >
 
-<title>
-VSH Tank Cleaning | Cart
-</title>
+    <title>Cart & Booking | VSH Tank Cleaning</title>
 
-<link rel="stylesheet"
-      href="css/styles.css">
+    <link
+        rel="stylesheet"
+        href="css/styles.css"
+    >
 
 </head>
 
-
 <body>
 
+<!-- =====================================================
+     TOP BAR
+===================================================== -->
 
-<header class="navbar">
+<div class="topline">
 
-<div class="logo">
+    <div class="container">
 
-<a href="index.html">
-VSH Tank Cleaning
-</a>
+        <span>
+            ✦ Professional water tank cleaning ·
+            Transparent pricing · Easy booking
+        </span>
+
+        <span>
+            Mon–Sun · 7 AM–9 PM
+        </span>
+
+    </div>
 
 </div>
 
 
-<nav>
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-<a href="index.html">
-Home
-</a>
+<header class="header">
 
-<a href="services.html">
-Services
-</a>
+    <div class="container nav">
 
-<a href="areas.html">
-Areas
-</a>
+        <a
+            class="brand"
+            href="index.html"
+        >
 
-<a href="prices.html">
-Prices
-</a>
+            <img
+                src="assets/vsh-logo.jpg"
+                alt="VSH Tank Cleaning"
+            >
 
-<a href="process.html">
-Process
-</a>
+            <span>
 
-<a href="reviews.html">
-Reviews
-</a>
+                <strong>
+                    VSH Tank Cleaning
+                </strong>
 
-<a href="guides.html">
-Guides
-</a>
+                <small>
+                    WATER TANK CLEANING
+                </small>
 
-<a href="about.html">
-About Us
-</a>
+            </span>
 
-<a href="contact.html">
-Contact
-</a>
+        </a>
 
-<a href="cart.html"
-   class="cart-link active">
 
-🛒 Cart
-<span id="cart-count">0</span>
+        <nav class="navlinks">
 
-</a>
+            <a href="index.html">
+                Home
+            </a>
 
-</nav>
+            <a href="services.html">
+                Services
+            </a>
+
+            <a href="areas.html">
+                Service Areas
+            </a>
+
+            <a href="prices.html">
+                Prices
+            </a>
+
+            <a href="process.html">
+                Process
+            </a>
+
+            <a href="reviews.html">
+                Reviews
+            </a>
+
+            <a href="guides.html">
+                Guides
+            </a>
+
+            <a href="about.html">
+                About Us
+            </a>
+
+        </nav>
+
+
+        <div class="header-actions">
+
+            <a
+                class="btn btn-black"
+                href="tel:+919599057079"
+            >
+                ☎ Call
+            </a>
+
+            <a
+                class="btn btn-green"
+                href="https://wa.me/919599057079"
+            >
+                WhatsApp
+            </a>
+
+            <a
+                class="btn btn-blue"
+                href="prices.html"
+            >
+                Book Now →
+            </a>
+
+        </div>
+
+    </div>
 
 </header>
 
 
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
-<main class="page">
+<main>
 
+<!-- =====================================================
+     HERO
+===================================================== -->
 
-<section class="hero-section">
+<section class="page-hero">
 
-<h1>
-Your Cart
-</h1>
+    <div class="container">
 
-<p>
-Review your selected tank cleaning services.
-</p>
+        <div class="eyebrow">
+            🛒 Booking cart
+        </div>
+
+        <h1>
+            Review your tanks.
+        </h1>
+
+        <p>
+            Check your selected services, choose your
+            preferred payment method and confirm your booking.
+        </p>
+
+    </div>
 
 </section>
 
 
+<!-- =====================================================
+     CART
+===================================================== -->
 
-<div id="cart-root">
+<section class="section">
+
+    <div class="container">
+
+        <!-- CART ROOT -->
+
+        <div id="cart-root">
+
+            <!-- =================================================
+                 EMPTY CART
+            ================================================= -->
+
+            <div
+                id="empty-cart"
+                class="card"
+                style="text-align:center;padding:50px 25px;"
+            >
+
+                <div
+                    style="
+                        font-size:52px;
+                        margin-bottom:15px;
+                    "
+                >
+                    🛒
+                </div>
+
+                <h2>
+                    Your cart is empty
+                </h2>
+
+                <p>
+                    Select a tank cleaning service from
+                    our pricing page to get started.
+                </p>
+
+                <a
+                    href="prices.html"
+                    class="btn btn-blue"
+                    style="margin-top:15px;"
+                >
+                    View Prices →
+                </a>
 
+            </div>
 
-<div id="cart-items"
-     class="cart-items">
-</div>
 
+            <!-- =================================================
+                 CART ITEMS
+            ================================================= -->
+
+            <div
+                id="cart-items"
+                class="cart-items"
+            ></div>
+
+
+            <!-- =================================================
+                 CHECKOUT SECTION
+            ================================================= -->
+
+            <div
+                id="checkout-section"
+                style="display:none;"
+            >
+
+                <!-- =============================================
+                     ORDER SUMMARY
+                ============================================== -->
 
+                <div class="card">
 
-<div id="empty-cart"
-     class="empty-cart"
-     style="display:none;">
+                    <h2>
+                        Order Summary
+                    </h2>
 
-<h2>
-Your cart is empty
-</h2>
+                    <div
+                        class="summary-row"
+                        style="
+                            display:flex;
+                            justify-content:space-between;
+                            gap:20px;
+                            padding:10px 0;
+                        "
+                    >
 
-<p>
-Select a tank cleaning service to continue.
-</p>
+                        <span>
+                            Subtotal
+                        </span>
 
-<a href="prices.html"
-   class="checkout-btn">
+                        <strong id="summary-subtotal">
+                            ₹0
+                        </strong>
 
-Browse Tank Prices
+                    </div>
 
-</a>
 
-</div>
+                    <div
+                        class="summary-row"
+                        style="
+                            display:flex;
+                            justify-content:space-between;
+                            gap:20px;
+                            padding:10px 0;
+                        "
+                    >
 
+                        <span>
+                            Bulk Discount
+                        </span>
 
+                        <strong id="summary-discount">
+                            ₹0
+                        </strong>
 
-<section
-id="checkout-section"
-class="checkout-section">
+                    </div>
 
 
-<h2>
-Booking Details
-</h2>
+                    <div
+                        id="online-discount-row"
+                        class="summary-row"
+                        style="
+                            display:none;
+                            justify-content:space-between;
+                            gap:20px;
+                            padding:10px 0;
+                        "
+                    >
 
+                        <span>
+                            Online Payment Discount
+                        </span>
 
-<form id="booking-form">
+                        <strong id="summary-online-discount">
+                            -₹0
+                        </strong>
 
+                    </div>
 
-<div class="form-row">
 
+                    <hr>
 
-<div class="form-group">
 
-<label for="customer-name">
-Name
-</label>
+                    <div
+                        class="summary-row"
+                        style="
+                            display:flex;
+                            justify-content:space-between;
+                            gap:20px;
+                            padding:15px 0;
+                            font-size:20px;
+                        "
+                    >
 
-<input
-id="customer-name"
-name="name"
-type="text"
-placeholder="Your full name"
-required>
+                        <strong>
+                            Total
+                        </strong>
 
-</div>
+                        <strong id="summary-total">
+                            ₹0
+                        </strong>
 
+                    </div>
 
+                </div>
 
-<div class="form-group">
 
-<label for="customer-phone">
-Phone
-</label>
+                <!-- =============================================
+                     BOOKING FORM
+                ============================================== -->
 
-<input
-id="customer-phone"
-name="phone"
-type="tel"
-placeholder="10-digit phone number"
-required>
+                <div
+                    class="card"
+                    style="margin-top:25px;"
+                >
 
-</div>
+                    <h2>
+                        Booking Details
+                    </h2>
 
+                    <p>
+                        Enter your details below and we'll
+                        confirm your tank cleaning appointment.
+                    </p>
 
-</div>
+
+                    <form
+                        id="booking-form"
+                        class="form"
+                    >
 
+                        <!-- NAME -->
 
+                        <label for="customer-name">
+                            Full Name
+                        </label>
 
-<div class="form-group">
+                        <input
+                            id="customer-name"
+                            type="text"
+                            name="name"
+                            placeholder="Enter your full name"
+                            required
+                        >
 
-<label for="address">
-Service Address
-</label>
 
-<textarea
-id="address"
-name="address"
-placeholder="Enter complete service address"
-required></textarea>
+                        <!-- PHONE -->
 
-</div>
+                        <label for="customer-phone">
+                            Phone Number
+                        </label>
 
+                        <input
+                            id="customer-phone"
+                            type="tel"
+                            name="phone"
+                            placeholder="Enter your phone number"
+                            pattern="[0-9]{10}"
+                            maxlength="10"
+                            required
+                        >
+
+
+                        <!-- ADDRESS -->
 
+                        <label for="customer-address">
+                            Service Address
+                        </label>
 
-<div class="form-row">
+                        <textarea
+                            id="customer-address"
+                            name="address"
+                            placeholder="Enter the complete address where the tank needs to be cleaned"
+                            rows="4"
+                            required
+                        ></textarea>
 
 
-<div class="form-group">
+                        <!-- DATE -->
 
-<label for="service-date">
-Preferred Service Date
-</label>
+                        <label for="service-date">
+                            Preferred Service Date
+                        </label>
 
-<input
-id="service-date"
-name="serviceDate"
-type="date"
-required>
+                        <input
+                            id="service-date"
+                            type="date"
+                            name="service-date"
+                            required
+                        >
 
-</div>
 
+                        <!-- PAYMENT -->
 
+                        <div
+                            style="
+                                margin-top:20px;
+                                margin-bottom:10px;
+                            "
+                        >
 
-<div class="form-group">
+                            <strong>
+                                Payment Method
+                            </strong>
 
-<label for="service-time">
-Preferred Time
-</label>
+                        </div>
 
-<input
-id="service-time"
-name="serviceTime"
-type="time"
-required>
 
-</div>
+                        <label
+                            style="
+                                display:flex;
+                                align-items:center;
+                                gap:10px;
+                                cursor:pointer;
+                                padding:12px;
+                                border:1px solid #ddd;
+                                border-radius:10px;
+                                margin-bottom:10px;
+                            "
+                        >
 
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="after-service"
+                                checked
+                            >
 
-</div>
+                            <span>
 
+                                <strong>
+                                    Pay After Service
+                                </strong>
 
+                                <br>
 
-<div class="form-group">
+                                <small>
+                                    Pay after the cleaning is completed.
+                                </small>
 
-<label>
-Payment Method
-</label>
+                            </span>
 
+                        </label>
 
-<div class="payment-options">
 
+                        <label
+                            style="
+                                display:flex;
+                                align-items:center;
+                                gap:10px;
+                                cursor:pointer;
+                                padding:12px;
+                                border:1px solid #ddd;
+                                border-radius:10px;
+                                margin-bottom:20px;
+                            "
+                        >
 
-<label class="payment-option">
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="online"
+                            >
 
-<input
-type="radio"
-name="paymentMethod"
-value="online"
-checked>
+                            <span>
 
-<span>
+                                <strong>
+                                    Pay Online
+                                </strong>
 
-<strong>
-Pay Online
-</strong>
+                                <br>
 
-<small>
-Additional 5% discount
-</small>
+                                <small>
+                                    Get an additional 5% online payment discount.
+                                </small>
 
-</span>
+                            </span>
 
-</label>
+                        </label>
 
 
+                        <!-- SUBMIT -->
 
-<label class="payment-option">
+                        <button
+                            id="booking-submit"
+                            type="submit"
+                            class="btn btn-blue"
+                            style="
+                                width:100%;
+                                padding:15px 20px;
+                                font-size:16px;
+                            "
+                        >
+                            Confirm Booking
+                        </button>
 
-<input
-type="radio"
-name="paymentMethod"
-value="after-service">
+                    </form>
 
-<span>
+                </div>
 
-<strong>
-Pay After Service
-</strong>
 
-<small>
-Pay after cleaning
-</small>
+                <!-- =============================================
+                     PAYMENT NOTE
+                ============================================== -->
 
-</span>
+                <div
+                    class="card"
+                    style="
+                        margin-top:20px;
+                        background:#f7faff;
+                    "
+                >
 
-</label>
+                    <h3>
+                        🔒 Secure Online Payment
+                    </h3>
 
+                    <p>
+                        Online payments are processed securely
+                        through Razorpay. Your card, UPI and
+                        banking details are handled by Razorpay.
+                    </p>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
+        </div>
 
-
-<div class="summary-box">
-
-
-<h2>
-Order Summary
-</h2>
-
-
-<div class="summary-row">
-
-<span>
-Subtotal
-</span>
-
-<strong id="summary-subtotal">
-₹0
-</strong>
-
-</div>
-
-
-
-<div class="summary-row discount">
-
-<span>
-Multi-tank discount
-</span>
-
-<strong id="summary-discount">
--₹0
-</strong>
-
-</div>
-
-
-
-<div
-class="summary-row discount"
-id="online-discount-row">
-
-<span>
-Online payment discount
-</span>
-
-<strong id="summary-online-discount">
--₹0
-</strong>
-
-</div>
-
-
-
-<div class="summary-total">
-
-<span>
-Total
-</span>
-
-<strong id="summary-total">
-₹0
-</strong>
-
-</div>
-
-
-</div>
-
-
-
-<button
-type="submit"
-class="checkout-btn"
-id="booking-submit">
-
-Confirm Booking
-
-</button>
-
-
-</form>
+    </div>
 
 </section>
-
-
-</div>
-
 
 </main>
 
 
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+        <div>
+
+            <a
+                class="brand"
+                href="index.html"
+            >
+
+                <img
+                    src="assets/vsh-logo.jpg"
+                    alt="VSH Tank Cleaning"
+                >
+
+                <span>
+
+                    <strong>
+                        VSH Tank Cleaning
+                    </strong>
+
+                    <small>
+                        PROFESSIONAL WATER TANK CLEANING
+                    </small>
+
+                </span>
+
+            </a>
+
+            <p>
+                Overhead and underground water tank cleaning
+                for homes, societies and businesses across
+                Delhi NCR.
+            </p>
+
+            <a
+                class="btn btn-green"
+                href="https://wa.me/919599057079"
+            >
+                WhatsApp
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                Services
+            </h3>
+
+            <a href="services.html">
+                Water tank cleaning
+            </a>
+
+            <a href="services.html#overhead">
+                Overhead tank cleaning
+            </a>
+
+            <a href="services.html#underground">
+                Underground tank cleaning
+            </a>
+
+            <a href="services.html#societies">
+                Society tank cleaning
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                Service Areas
+            </h3>
+
+            <a href="areas.html">
+                Delhi
+            </a>
+
+            <a href="areas.html">
+                West Delhi
+            </a>
+
+            <a href="areas.html">
+                South Delhi
+            </a>
+
+            <a href="areas.html">
+                Gurgaon
+            </a>
+
+            <a href="areas.html">
+                Noida
+            </a>
+
+            <a href="areas.html">
+                Ghaziabad
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                Help & Guides
+            </h3>
+
+            <a href="prices.html">
+                Price list
+            </a>
+
+            <a href="cart.html">
+                Book online
+            </a>
+
+            <a href="process.html">
+                Our cleaning process
+            </a>
+
+            <a href="guides.html">
+                Tank care guides
+            </a>
+
+            <a href="about.html">
+                About VSH
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+
+        <span>
+            © 2026 VSH Tank Cleaning
+        </span>
+
+        <span>
+            Delhi NCR
+        </span>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     FLOATING WHATSAPP
+===================================================== -->
+
+<a
+    class="floating-wa"
+    href="https://wa.me/919599057079"
+>
+    ◔
+</a>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
 
 <script src="js/app.js"></script>
 
 </body>
+
 </html>
